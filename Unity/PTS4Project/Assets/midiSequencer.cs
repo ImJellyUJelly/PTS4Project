@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using Sanford.Multimedia.Midi;
 using System;
@@ -8,14 +9,23 @@ using System;
 public class midiSequencer : MonoBehaviour {
 
     Sequence song;
-    Sequencer sequencer = new Sequencer();
-    OutputDevice outDevice = new OutputDevice(0);
+    Sequencer sequencer;
+    OutputDevice outDevice;
+
+    public GameObject Slider;
+    private Slider ProgressBar;
+
     public int channels = 16;
 
 	// Use this for initialization
 	void Start () {
         Debug.Log("");
+        sequencer = new Sequencer();
         sequencer.Sequence = new Sequence();
+
+        ProgressBar = Slider.GetComponent<Slider>();
+
+        outDevice = new OutputDevice(0);
 
         Reset();
 
@@ -24,8 +34,8 @@ public class midiSequencer : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
-	}
+        ProgressBar.value = sequencer.Position;
+    }
 
     public void LoadMidi()
     {        
@@ -39,6 +49,7 @@ public class midiSequencer : MonoBehaviour {
         }
 
         sequencer.Sequence = song;
+        ProgressBar.maxValue = song.GetLength();
 
         Debug.Log("Loaded town.mid");
         
@@ -64,6 +75,10 @@ public class midiSequencer : MonoBehaviour {
     private void Sequencer_ChannelMessagePlayed(object sender, ChannelMessageEventArgs e)
     {
         outDevice.Send(e.Message);
-        //do graphics here
+    }
+
+    private void OnApplicationQuit()
+    {
+        outDevice.Dispose();
     }
 }

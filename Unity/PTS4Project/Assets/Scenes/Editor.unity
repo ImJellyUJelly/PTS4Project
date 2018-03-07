@@ -611,7 +611,7 @@ RectTransform:
   m_AnchorMin: {x: 0.14941671, y: 0}
   m_AnchorMax: {x: 1, y: 0.85777694}
   m_AnchoredPosition: {x: -1.7000122, y: 0.17807007}
-  m_SizeDelta: {x: 3.6, y: 0.5999985}
+  m_SizeDelta: {x: 3.5999, y: 0.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &137145082
 MonoBehaviour:
@@ -707,7 +707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000070630012, y: -0.0000074767067}
+  m_AnchoredPosition: {x: -0.0000070630012, y: 30.862906}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &171361134
@@ -1071,7 +1071,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 886473258}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 0.61827976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1432,8 +1432,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 530929983}
   m_HandleRect: {fileID: 530929982}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1980,8 +1980,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2075154948}
   m_HandleRect: {fileID: 2075154947}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2355,7 +2355,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 725079189}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.16433707
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2880,7 +2880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 704841404}
   m_Layer: 5
-  m_Name: Content
+  m_Name: ContentMidiSong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2899,10 +2899,10 @@ RectTransform:
   m_Father: {fileID: 717491737}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00008989924, y: 0.000032254768}
-  m_SizeDelta: {x: 0, y: 314.1}
+  m_AnchorMin: {x: 0, y: 0.9297159}
+  m_AnchorMax: {x: 1, y: 0.9297159}
+  m_AnchoredPosition: {x: 0.00002337397, y: 142.20656}
+  m_SizeDelta: {x: 1000, y: 824.5}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &717491736
 GameObject:
@@ -5862,7 +5862,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1075606139}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.67034674
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5998,6 +5998,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Slider: {fileID: 232157498}
+  MidiNote: {fileID: 1979345889851242, guid: 7cc866c718a75b84eb52f6cfd0d8fe93, type: 2}
+  ContentMidiSong: {fileID: 704841403}
   channels: 16
 --- !u!4 &1758599018
 Transform:

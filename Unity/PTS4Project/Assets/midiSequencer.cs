@@ -15,6 +15,10 @@ public class midiSequencer : MonoBehaviour {
     public GameObject Slider;
     private Slider ProgressBar;
 
+    public GameObject MidiNote;
+
+    public GameObject ContentMidiSong;
+
     public int channels = 16;
 
 	// Use this for initialization
@@ -50,6 +54,9 @@ public class midiSequencer : MonoBehaviour {
 
         sequencer.Sequence = song;
         ProgressBar.maxValue = song.GetLength();
+        ContentMidiSong.GetComponent<RectTransform>().transform.right = new Vector3(song.GetLength(), 2000);
+
+        ReadSong();
 
         Debug.Log("Loaded town.mid");
         
@@ -61,6 +68,29 @@ public class midiSequencer : MonoBehaviour {
         sequencer.Start();
 
         Debug.Log("Playing");
+    }
+
+    public void ReadSong()
+    {
+        int trackNo = 0;
+
+        foreach (var track in song)
+        {
+            foreach (var midiEvent in track.Iterator())
+            {
+                if (midiEvent.MidiMessage.MessageType == MessageType.Channel)
+                {
+                    ChannelMessage cm = (ChannelMessage)midiEvent.MidiMessage;
+
+                    GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
+
+                    midiNote.transform.position = new Vector3(midiEvent.AbsoluteTicks, cm.Data1 + 100);
+
+                    //Console.WriteLine("Track:" + trackNo + " " + midiEvent.AbsoluteTicks + ": " + cm.Command + " :" + cm.Data1 + " :" + cm.Data2);
+                }
+            }
+            trackNo++;
+        }
     }
 
     private void Reset()

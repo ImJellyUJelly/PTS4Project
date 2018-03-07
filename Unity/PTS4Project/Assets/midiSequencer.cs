@@ -19,6 +19,9 @@ public class midiSequencer : MonoBehaviour {
 
     public GameObject ContentMidiSong;
 
+    public GameObject MidiScrollBar;
+    private Scrollbar TimeBar;
+
     public int channels = 16;
 
 	// Use this for initialization
@@ -28,6 +31,7 @@ public class midiSequencer : MonoBehaviour {
         sequencer.Sequence = new Sequence();
 
         ProgressBar = Slider.GetComponent<Slider>();
+        TimeBar = MidiScrollBar.GetComponent<Scrollbar>();
 
         outDevice = new OutputDevice(0);
 
@@ -39,13 +43,14 @@ public class midiSequencer : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         ProgressBar.value = sequencer.Position;
+        TimeBar.value = Normalize(sequencer.Position, song.GetLength(), 0);
     }
 
     public void LoadMidi()
     {        
         try
         {
-            song.Load("town.mid");
+            song.Load("newbark.mid");
         }
         catch (Exception e)
         {
@@ -54,11 +59,12 @@ public class midiSequencer : MonoBehaviour {
 
         sequencer.Sequence = song;
         ProgressBar.maxValue = song.GetLength();
-        ContentMidiSong.GetComponent<RectTransform>().transform.right = new Vector3(song.GetLength(), 2000);
+        //ContentMidiSong.GetComponent<RectTransform>().transform.right = new Vector3(song.GetLength(), 2000);
+        
 
         ReadSong();
 
-        Debug.Log("Loaded town.mid");
+        Debug.Log("Loaded newbark.mid");
         
     }
 
@@ -84,7 +90,7 @@ public class midiSequencer : MonoBehaviour {
 
                     GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
 
-                    midiNote.transform.position = new Vector3(midiEvent.AbsoluteTicks, cm.Data1 + 100);
+                    midiNote.transform.position = new Vector3((midiEvent.AbsoluteTicks) + 200, (float)(cm.Data1 * 5));
 
                     //Console.WriteLine("Track:" + trackNo + " " + midiEvent.AbsoluteTicks + ": " + cm.Command + " :" + cm.Data1 + " :" + cm.Data2);
                 }
@@ -101,6 +107,11 @@ public class midiSequencer : MonoBehaviour {
             song.Add(new Track());
         }
     }
+
+    private float Normalize(float value, float max, float min) {
+        return (value - min) / (max - min);
+    }
+
 
     private void Sequencer_ChannelMessagePlayed(object sender, ChannelMessageEventArgs e)
     {

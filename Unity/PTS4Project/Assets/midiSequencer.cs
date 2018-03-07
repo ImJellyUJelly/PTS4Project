@@ -48,11 +48,11 @@ public class midiSequencer : MonoBehaviour {
         //Debug.Log(sequencer.Position);
     }
 
-    public void LoadMidi()
+    public void LoadMidi(String path)
     {        
         try
         {
-            song.Load("newbark.mid");
+            song.Load(path);
         }
         catch (Exception e)
         {
@@ -62,9 +62,6 @@ public class midiSequencer : MonoBehaviour {
         sequencer.Sequence = song;
         ProgressBar.maxValue = song.GetLength();
         ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength(), ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
-        
-
-        Debug.Log(song.GetLength());
         
 
         ReadSong();
@@ -96,9 +93,42 @@ public class midiSequencer : MonoBehaviour {
                     {
                         GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
 
-                        midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (cm.Data1 * 7) - 800);
-                        midiNote.GetComponent<Image>().color = new Color32((byte)(trackNo * 100), (byte)(trackNo * 100), (byte)(trackNo * 100), 255);
-                        Debug.Log(midiEvent.AbsoluteTicks);
+                        midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (cm.Data1 * 7) - 900);
+
+                        Color32 noteColor = new Color32(0, 0, 0,0);
+                        switch (trackNo)
+                        {
+                            case 0:
+                                noteColor = new Color32(255, 0, 0, 255);
+                                break;
+                            case 1:
+                                noteColor = new Color32(0, 255, 0, 255);
+                                break;
+                            case 2:
+                                noteColor = new Color32(0, 0, 255, 255);
+                                break;
+                            case 3:
+                                noteColor = new Color32(255, 255, 0, 255);
+                                break;
+                            case 4:
+                                noteColor = new Color32(255, 0, 255, 255);
+                                break;
+                            case 5:
+                                noteColor = new Color32(0, 255, 255, 255);
+                                break;
+                            case 6:
+                                noteColor = new Color32(125, 125, 0, 255);
+                                break;
+                            case 7:
+                                noteColor = new Color32(125, 0, 125, 255);
+                                break;
+                            case 8:
+                                noteColor = new Color32(0, 125, 125, 255);
+                                break;
+                            default:
+                                break;
+                        }
+                        midiNote.GetComponent<Image>().color = noteColor;
                     }
                     //Console.WriteLine("Track:" + trackNo + " " + midiEvent.AbsoluteTicks + ": " + cm.Command + " :" + cm.Data1 + " :" + cm.Data2);                   
                 }

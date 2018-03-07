@@ -96,7 +96,8 @@ public class midiSequencer : MonoBehaviour {
                     {
                         GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
 
-                        midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (-cm.Data1 * 5));
+                        midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (cm.Data1 * 7) - 800);
+                        midiNote.GetComponent<Image>().color = new Color32((byte)(trackNo * 100), (byte)(trackNo * 100), (byte)(trackNo * 100), 255);
                         Debug.Log(midiEvent.AbsoluteTicks);
                     }
                     //Console.WriteLine("Track:" + trackNo + " " + midiEvent.AbsoluteTicks + ": " + cm.Command + " :" + cm.Data1 + " :" + cm.Data2);                   

@@ -44,13 +44,15 @@ public class midiSequencer : MonoBehaviour {
     void Update () {
         ProgressBar.value = sequencer.Position;
         TimeBar.value = Normalize(sequencer.Position, song.GetLength(), 0);
+
+        //Debug.Log(sequencer.Position);
     }
 
     public void LoadMidi()
     {        
         try
         {
-            song.Load("smas11.mid");
+            song.Load("newbark.mid");
         }
         catch (Exception e)
         {
@@ -59,7 +61,10 @@ public class midiSequencer : MonoBehaviour {
 
         sequencer.Sequence = song;
         ProgressBar.maxValue = song.GetLength();
-        ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength() * 5, ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
+        ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength(), ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
+        
+
+        Debug.Log(song.GetLength());
         
 
         ReadSong();
@@ -87,11 +92,13 @@ public class midiSequencer : MonoBehaviour {
                 if (midiEvent.MidiMessage.MessageType == MessageType.Channel)
                 {
                     ChannelMessage cm = (ChannelMessage)midiEvent.MidiMessage;
+                    if (cm.Command == ChannelCommand.NoteOn && cm.Data2 != 0)
+                    {
+                        GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
 
-                    GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
-
-                    midiNote.transform.position = new Vector3((midiEvent.AbsoluteTicks * 5) + 0, (float)(cm.Data1 * 5));
-
+                        midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (-cm.Data1 * 5));
+                        Debug.Log(midiEvent.AbsoluteTicks);
+                    }
                     //Console.WriteLine("Track:" + trackNo + " " + midiEvent.AbsoluteTicks + ": " + cm.Command + " :" + cm.Data1 + " :" + cm.Data2);                   
                 }
             }

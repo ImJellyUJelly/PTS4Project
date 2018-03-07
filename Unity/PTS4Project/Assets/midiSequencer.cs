@@ -50,7 +50,7 @@ public class midiSequencer : MonoBehaviour {
     {        
         try
         {
-            song.Load("newbark.mid");
+            song.Load("smas11.mid");
         }
         catch (Exception e)
         {
@@ -59,7 +59,7 @@ public class midiSequencer : MonoBehaviour {
 
         sequencer.Sequence = song;
         ProgressBar.maxValue = song.GetLength();
-        //ContentMidiSong.GetComponent<RectTransform>().transform.right = new Vector3(song.GetLength(), 2000);
+        ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength() * 5, ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
         
 
         ReadSong();
@@ -90,9 +90,9 @@ public class midiSequencer : MonoBehaviour {
 
                     GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
 
-                    midiNote.transform.position = new Vector3((midiEvent.AbsoluteTicks) + 200, (float)(cm.Data1 * 5));
+                    midiNote.transform.position = new Vector3((midiEvent.AbsoluteTicks * 5) + 0, (float)(cm.Data1 * 5));
 
-                    //Console.WriteLine("Track:" + trackNo + " " + midiEvent.AbsoluteTicks + ": " + cm.Command + " :" + cm.Data1 + " :" + cm.Data2);
+                    //Console.WriteLine("Track:" + trackNo + " " + midiEvent.AbsoluteTicks + ": " + cm.Command + " :" + cm.Data1 + " :" + cm.Data2);                   
                 }
             }
             trackNo++;

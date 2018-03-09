@@ -37,11 +37,14 @@ public class FileManager : MonoBehaviour {
         }
     }
 
-    public void safeFile()
+    public void safeFile() //save?
     {
         path = EditorUtility.SaveFilePanel("", "../", "", "mid");
         if (path.Length != 0)
         {
+            var fileContent = path;
+            Debug.Log(fileContent);
+            ms.SaveFile(fileContent);
         }
     }
 }

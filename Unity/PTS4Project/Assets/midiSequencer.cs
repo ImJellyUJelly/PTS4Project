@@ -73,9 +73,26 @@ public class midiSequencer : MonoBehaviour {
     public void PlaySequence()
     {
         sequencer.Sequence = song;
-        sequencer.Start();
+        sequencer.Continue();
 
         Debug.Log("Playing");
+    }
+
+    public void PauseSequence()
+    {
+        sequencer.Stop();
+
+        Debug.Log("Pausing");
+    }
+
+    public void StopSequence()
+    {
+        sequencer.Stop();
+        sequencer.Position = 0;
+
+        outDevice.Reset();
+
+        Debug.Log("Stopping.");
     }
 
     public void ReadSong()

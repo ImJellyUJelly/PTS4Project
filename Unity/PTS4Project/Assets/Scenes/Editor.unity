@@ -707,7 +707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000070630012, y: 0.04545919}
+  m_AnchoredPosition: {x: -0.00006276184, y: 0.87601423}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &171361134
@@ -1071,7 +1071,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 886473258}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.038681056
+  m_Size: 0.07651116
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1443,8 +1443,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 530929983}
   m_HandleRect: {fileID: 530929982}
   m_Direction: 0
-  m_Value: 0.5
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1737,7 +1737,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1758599017}
-        m_MethodName: LoadMidi
+        m_MethodName: PauseSequence
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1992,7 +1992,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2075154947}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2366,7 +2366,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 725079189}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.52148557
+  m_Size: 0.5112046
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2912,7 +2912,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.9297159}
   m_AnchorMax: {x: 1, y: 0.9297159}
-  m_AnchoredPosition: {x: 0.00008483231, y: 63.94886}
+  m_AnchoredPosition: {x: 0.00008483231, y: 63.771713}
   m_SizeDelta: {x: 19550, y: 1742.3}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &717491736
@@ -3308,7 +3308,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 777788899}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1758599017}
+        m_MethodName: StopSequence
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &777788899
@@ -4459,7 +4470,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000016553899, y: 0.000095367}
+  m_AnchoredPosition: {x: -0.000043155967, y: 0.000095367}
   m_SizeDelta: {x: 0, y: 1152.5}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1123372237
@@ -5887,7 +5898,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1075606139}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.75384593
+  m_Size: 0.900372
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6915,8 +6926,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 582907078}
   m_HandleRect: {fileID: 582907077}
   m_Direction: 2
-  m_Value: 0.9999992
-  m_Size: 0.7321474
+  m_Value: 0.9999996
+  m_Size: 0.7321476
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

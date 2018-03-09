@@ -707,11 +707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-<<<<<<< HEAD
   m_AnchoredPosition: {x: -0.0000070630012, y: 0.04545919}
-=======
-  m_AnchoredPosition: {x: -0.0000070630012, y: 101.903175}
->>>>>>> 1432c7eb50b854ab0f41e5512cd0ea89fa5a9a3e
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &171361134
@@ -1447,13 +1443,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 530929983}
   m_HandleRect: {fileID: 530929982}
   m_Direction: 0
-<<<<<<< HEAD
   m_Value: 0.5
   m_Size: 0.99999994
-=======
-  m_Value: 0
-  m_Size: 1
->>>>>>> 1432c7eb50b854ab0f41e5512cd0ea89fa5a9a3e
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2374,13 +2365,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 725079190}
   m_HandleRect: {fileID: 725079189}
   m_Direction: 2
-<<<<<<< HEAD
   m_Value: 1
   m_Size: 0.52148557
-=======
-  m_Value: 0
-  m_Size: 0.31519654
->>>>>>> 1432c7eb50b854ab0f41e5512cd0ea89fa5a9a3e
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2926,13 +2912,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.9297159}
   m_AnchorMax: {x: 1, y: 0.9297159}
-<<<<<<< HEAD
   m_AnchoredPosition: {x: 0.00008483231, y: 63.94886}
   m_SizeDelta: {x: 19550, y: 1742.3}
-=======
-  m_AnchoredPosition: {x: 0, y: 369.16986}
-  m_SizeDelta: {x: 40254, y: 920.3}
->>>>>>> 1432c7eb50b854ab0f41e5512cd0ea89fa5a9a3e
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &717491736
 GameObject:
@@ -5906,11 +5887,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1075606139}
   m_Direction: 2
   m_Value: 0
-<<<<<<< HEAD
-  m_Size: 0.99270743
-=======
   m_Size: 0.75384593
->>>>>>> 1432c7eb50b854ab0f41e5512cd0ea89fa5a9a3e
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6938,13 +6915,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 582907078}
   m_HandleRect: {fileID: 582907077}
   m_Direction: 2
-<<<<<<< HEAD
   m_Value: 0.9999992
   m_Size: 0.7321474
-=======
-  m_Value: 0.9999996
-  m_Size: 0.7321476
->>>>>>> 1432c7eb50b854ab0f41e5512cd0ea89fa5a9a3e
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

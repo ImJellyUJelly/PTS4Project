@@ -44,7 +44,7 @@ public class FileManager : MonoBehaviour {
         {
             var fileContent = path;
             Debug.Log(fileContent);
-            ms.SaveFile(fileContent);
+            //ms.SaveFile(fileContent);
         }
     }
 }

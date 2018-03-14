@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 using Sanford.Multimedia.Midi;
 using System;
+using Assets;
 
 public class midiSequencer : MonoBehaviour {
 
@@ -22,7 +23,13 @@ public class midiSequencer : MonoBehaviour {
     public GameObject MidiScrollBar;
     private Scrollbar TimeBar;
 
+    public Scrollbar PianoScroll;
+
+    public Scrollbar NoteViewScoll;
+
     public int channels = 16;
+
+    private NoteGrid noteGrid = new NoteGrid();
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +51,8 @@ public class midiSequencer : MonoBehaviour {
     void Update () {
         ProgressBar.value = sequencer.Position;
         TimeBar.value = Normalize(sequencer.Position, song.GetLength(), 0);
+
+        PianoScroll.value = NoteViewScoll.value;
 
         //Debug.Log(sequencer.Position);
     }
@@ -110,7 +119,8 @@ public class midiSequencer : MonoBehaviour {
                     {
                         GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
 
-                        midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (cm.Data1 * 7) - 900);
+                        Debug.Log(cm.Data1);
+                        midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (int)noteGrid.GridNote[cm.Data1]);
 
                         Color32 noteColor = new Color32(0, 0, 0,0);
                         switch (trackNo)

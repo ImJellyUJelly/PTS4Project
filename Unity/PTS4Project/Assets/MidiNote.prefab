@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224274190630875586}
   - component: {fileID: 222775346679899796}
   - component: {fileID: 114545491801370250}
+  - component: {fileID: 114034022663448960}
   m_Layer: 5
   m_Name: MidiNote
   m_TagString: Untagged
@@ -28,6 +29,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114034022663448960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1979345889851242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646a549513ba02946a9d9cb40c39e450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114545491801370250
 MonoBehaviour:
   m_ObjectHideFlags: 1

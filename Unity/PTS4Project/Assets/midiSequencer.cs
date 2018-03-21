@@ -11,7 +11,7 @@ using System.Threading;
 public class midiSequencer : MonoBehaviour {
 
     Sequence song;
-    Sequencer sequencer;
+    public Sequencer sequencer;
     OutputDevice outDevice;
 
     public GameObject Slider;
@@ -31,12 +31,17 @@ public class midiSequencer : MonoBehaviour {
 
     public List<GameObject> Octave;
 
+    public initializePiano piano;
+
     public int channels = 16;
+
+    public bool playing;
 
     private NoteGrid noteGrid = new NoteGrid();
 
 	// Use this for initialization
 	void Start () {
+        playing = false;
         MidiNotes = new List<GameObject>();
         sequencer = new Sequencer();
         sequencer.Sequence = new Sequence();
@@ -93,6 +98,7 @@ public class midiSequencer : MonoBehaviour {
     {
         sequencer.Sequence = song;
         sequencer.Continue();
+        playing = true;
 
         Debug.Log("Playing");
     }
@@ -100,6 +106,7 @@ public class midiSequencer : MonoBehaviour {
     public void PauseSequence()
     {
         sequencer.Stop();
+        playing = false;
 
         Debug.Log("Pausing");
     }
@@ -108,6 +115,7 @@ public class midiSequencer : MonoBehaviour {
     {
         sequencer.Stop();
         sequencer.Position = 0;
+        playing = false;
 
         outDevice.Reset();
 
@@ -128,6 +136,12 @@ public class midiSequencer : MonoBehaviour {
                     if (cm.Command == ChannelCommand.NoteOn && cm.Data2 != 0)
                     {
                         GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
+                        Debug.Log(cm.Data1);
+                        GameObject button = (GameObject)piano.KeyMap[cm.Data1];
+                        midiNote.GetComponent<buttonClickTest>().button = button.GetComponent<Button>();
+                        midiNote.GetComponent<buttonClickTest>().position = midiEvent.AbsoluteTicks;
+                        midiNote.GetComponent<buttonClickTest>().sequencer = this;
+                        midiNote.GetComponent<buttonClickTest>().colors = button.GetComponent<Button>().colors;
                         MidiNotes.Add(midiNote);
 
                         midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (int)noteGrid.GridNote[cm.Data1]);

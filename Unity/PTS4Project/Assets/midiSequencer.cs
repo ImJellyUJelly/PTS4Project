@@ -18,7 +18,7 @@ public class midiSequencer : MonoBehaviour {
     private Slider ProgressBar;
 
     public GameObject MidiNote;
-    private List<GameObject> MidiNotes;
+    private List<List<GameObject>> MidiNotes;
 
     public GameObject ContentMidiSong;
 
@@ -42,9 +42,11 @@ public class midiSequencer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playing = false;
-        MidiNotes = new List<GameObject>();
+        MidiNotes = new List<List<GameObject>>();
         sequencer = new Sequencer();
         sequencer.Sequence = new Sequence();
+
+        MidiNotes = new List<List<GameObject>>();
 
         ProgressBar = Slider.GetComponent<Slider>();
         TimeBar = MidiScrollBar.GetComponent<Scrollbar>();
@@ -65,12 +67,18 @@ public class midiSequencer : MonoBehaviour {
     }
 
     public void LoadMidi(String path)
-    {        
-        if (MidiNotes.Count > 1)
+    {
+        StopSequence();
+
+        if (MidiNotes != null)
         {
-            foreach (var note in MidiNotes)
+            for (int track = 0; track < MidiNotes.Count; track++)
             {
-                Destroy(note);
+                foreach (var note in MidiNotes[track])
+                {
+                    Destroy(note);
+                }
+                MidiNotes.Remove(MidiNotes[track]);
             }
         }
 
@@ -128,6 +136,8 @@ public class midiSequencer : MonoBehaviour {
 
         foreach (var track in song)
         {
+            MidiNotes.Add(new List<GameObject>());
+
             foreach (var midiEvent in track.Iterator())
             {
                 if (midiEvent.MidiMessage.MessageType == MessageType.Channel)
@@ -142,7 +152,7 @@ public class midiSequencer : MonoBehaviour {
                         midiNote.GetComponent<buttonClickTest>().position = midiEvent.AbsoluteTicks;
                         midiNote.GetComponent<buttonClickTest>().sequencer = this;
                         midiNote.GetComponent<buttonClickTest>().colors = button.GetComponent<Button>().colors;
-                        MidiNotes.Add(midiNote);
+                        MidiNotes[trackNo].Add(midiNote);
 
                         midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (int)noteGrid.GridNote[cm.Data1]);
 
@@ -184,6 +194,29 @@ public class midiSequencer : MonoBehaviour {
                 }
             }
             trackNo++;
+        }
+    }
+
+    public void ChangeTrack(int trackNo)
+    {
+        int trackIndex = 0;
+
+        foreach (var track in MidiNotes)
+        {
+            if (trackIndex == trackNo)
+            {
+                foreach (var note in track)
+                {
+                    note.GetComponent<Image>().enabled = true;
+                }
+            } else
+            {
+                foreach (var note in track)
+                {
+                    note.GetComponent<Image>().enabled = false;
+                }
+            }
+            trackIndex++;
         }
     }
 

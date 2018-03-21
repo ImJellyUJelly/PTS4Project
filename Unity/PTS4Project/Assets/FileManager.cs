@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-//using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +28,7 @@ public class FileManager : MonoBehaviour {
 
     public void OpenExplorer()
     {
-        path = "C:\\Users\\a\\Desktop\\git\\PTS4Project\\PTS4Project\\Unity\\PTS4Project\\town.mid";//EditorUtility.OpenFilePanel("", "../", "mid");
+        path = EditorUtility.OpenFilePanel("", "../", "mid");
         if (path.Length != 0)
         {
             var fileContent = path;
@@ -39,7 +39,7 @@ public class FileManager : MonoBehaviour {
 
     public void safeFile() //save?
     {
-        path = "";//EditorUtility.SaveFilePanel("", "../", "", "mid");
+        path = EditorUtility.SaveFilePanel("", "../", "", "mid");
         if (path.Length != 0)
         {
             var fileContent = path;

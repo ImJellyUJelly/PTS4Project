@@ -81,8 +81,8 @@ public class midiSequencer : MonoBehaviour {
         sequencer.Sequence = song;
         ProgressBar.maxValue = song.GetLength();
         ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength(), ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
-        
 
+        Thread.CurrentThread.IsBackground = true;
         ReadSong();
 
         Debug.Log("Loaded " + path);

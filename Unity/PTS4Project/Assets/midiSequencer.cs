@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Sanford.Multimedia.Midi;
 using System;
 using Assets;
+using System.Threading;
 
 public class midiSequencer : MonoBehaviour {
 
@@ -17,6 +18,7 @@ public class midiSequencer : MonoBehaviour {
     private Slider ProgressBar;
 
     public GameObject MidiNote;
+    private List<GameObject> MidiNotes;
 
     public GameObject ContentMidiSong;
 
@@ -27,6 +29,8 @@ public class midiSequencer : MonoBehaviour {
 
     public Scrollbar NoteViewScoll;
 
+    public List<GameObject> Octave;
+
     public int channels = 16;
 
     private NoteGrid noteGrid = new NoteGrid();
@@ -34,6 +38,7 @@ public class midiSequencer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Debug.Log("");
+        MidiNotes = new List<GameObject>();
         sequencer = new Sequencer();
         sequencer.Sequence = new Sequence();
 
@@ -59,6 +64,14 @@ public class midiSequencer : MonoBehaviour {
 
     public void LoadMidi(String path)
     {        
+        if (MidiNotes.Count > 1)
+        {
+            foreach (var note in MidiNotes)
+            {
+                Destroy(note);
+            }
+        }
+
         try
         {
             song.Load(path);
@@ -75,7 +88,7 @@ public class midiSequencer : MonoBehaviour {
 
         ReadSong();
 
-        Debug.Log("Loaded newbark.mid");
+        Debug.Log("Loaded " + path);
         
     }
 
@@ -118,6 +131,7 @@ public class midiSequencer : MonoBehaviour {
                     if (cm.Command == ChannelCommand.NoteOn && cm.Data2 != 0)
                     {
                         GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
+                        MidiNotes.Add(midiNote);
 
                         Debug.Log(cm.Data1);
                         midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (int)noteGrid.GridNote[cm.Data1]);

@@ -8,7 +8,8 @@ using System;
 using Assets;
 using System.Threading;
 
-public class midiSequencer : MonoBehaviour {
+public class midiSequencer : MonoBehaviour
+{
 
     Sequence song;
     public Sequencer sequencer;
@@ -18,7 +19,7 @@ public class midiSequencer : MonoBehaviour {
     private Slider ProgressBar;
 
     public GameObject MidiNote;
-    private List<GameObject> MidiNotes;
+    private List<List<GameObject>> MidiNotes;
 
     public GameObject ContentMidiSong;
 
@@ -39,12 +40,15 @@ public class midiSequencer : MonoBehaviour {
 
     private NoteGrid noteGrid = new NoteGrid();
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         playing = false;
-        MidiNotes = new List<GameObject>();
+        MidiNotes = new List<List<GameObject>>();
         sequencer = new Sequencer();
         sequencer.Sequence = new Sequence();
+
+        MidiNotes = new List<List<GameObject>>();
 
         ProgressBar = Slider.GetComponent<Slider>();
         TimeBar = MidiScrollBar.GetComponent<Scrollbar>();
@@ -57,7 +61,8 @@ public class midiSequencer : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         ProgressBar.value = sequencer.Position;
         TimeBar.value = Normalize(sequencer.Position, song.GetLength(), 0);
 
@@ -65,12 +70,18 @@ public class midiSequencer : MonoBehaviour {
     }
 
     public void LoadMidi(String path)
-    {        
-        if (MidiNotes.Count > 1)
+    {
+        StopSequence();
+
+        if (MidiNotes != null)
         {
-            foreach (var note in MidiNotes)
+            for (int track = 0; track < MidiNotes.Count; track++)
             {
-                Destroy(note);
+                foreach (var note in MidiNotes[track])
+                {
+                    Destroy(note);
+                }
+                MidiNotes.Remove(MidiNotes[track]);
             }
         }
 
@@ -91,7 +102,7 @@ public class midiSequencer : MonoBehaviour {
         ReadSong();
 
         Debug.Log("Loaded " + path);
-        
+
     }
 
     public void PlaySequence()
@@ -128,6 +139,8 @@ public class midiSequencer : MonoBehaviour {
 
         foreach (var track in song)
         {
+            MidiNotes.Add(new List<GameObject>());
+
             foreach (var midiEvent in track.Iterator())
             {
                 if (midiEvent.MidiMessage.MessageType == MessageType.Channel)
@@ -142,11 +155,11 @@ public class midiSequencer : MonoBehaviour {
                         midiNote.GetComponent<buttonClickTest>().position = midiEvent.AbsoluteTicks;
                         midiNote.GetComponent<buttonClickTest>().sequencer = this;
                         midiNote.GetComponent<buttonClickTest>().colors = button.GetComponent<Button>().colors;
-                        MidiNotes.Add(midiNote);
+                        MidiNotes[trackNo].Add(midiNote);
 
                         midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (int)noteGrid.GridNote[cm.Data1]);
 
-                        Color32 noteColor = new Color32(0, 0, 0,0);
+                        Color32 noteColor = new Color32(0, 0, 0, 0);
                         switch (trackNo)
                         {
                             case 0:
@@ -187,6 +200,30 @@ public class midiSequencer : MonoBehaviour {
         }
     }
 
+    public void ChangeTrack(int trackNo)
+    {
+        int trackIndex = 0;
+
+        foreach (var track in MidiNotes)
+        {
+            if (trackIndex == trackNo)
+            {
+                foreach (var note in track)
+                {
+                    note.GetComponent<Image>().enabled = true;
+                }
+            }
+            else
+            {
+                foreach (var note in track)
+                {
+                    note.GetComponent<Image>().enabled = false;
+                }
+            }
+            trackIndex++;
+        }
+    }
+
     private void Reset()
     {
         song = new Sequence();
@@ -196,7 +233,8 @@ public class midiSequencer : MonoBehaviour {
         }
     }
 
-    private float Normalize(float value, float max, float min) {
+    private float Normalize(float value, float max, float min)
+    {
         return (value - min) / (max - min);
     }
 

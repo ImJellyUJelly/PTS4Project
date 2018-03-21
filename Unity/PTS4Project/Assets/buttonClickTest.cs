@@ -15,6 +15,8 @@ public class buttonClickTest : MonoBehaviour {
 
     private void Start()
     {
+        InvokeRepeating("MakeVisible", 0.0f, 0.5f);
+
         played = false;
     }
 
@@ -25,9 +27,9 @@ public class buttonClickTest : MonoBehaviour {
 
     private void Update()
     {
-        if (!played)
+        if (true)
         {
-            if (sequencer.sequencer.Position == position)
+            if (sequencer.sequencer.Position > position - 12 && sequencer.sequencer.Position < position + 12)
             {
                 played = true;
                 Click();
@@ -47,7 +49,7 @@ public class buttonClickTest : MonoBehaviour {
             colors.normalColor = new Color(colors.pressedColor.r, colors.pressedColor.g, colors.pressedColor.b, colors.pressedColor.a);
             button.colors = colors;
         }
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.1f);
         StartCoroutine(changeColorUnpressed());
     }
 
@@ -58,6 +60,27 @@ public class buttonClickTest : MonoBehaviour {
             yield return new WaitForEndOfFrame();
             colors.normalColor = new Color(colors.highlightedColor.r, colors.highlightedColor.g, colors.highlightedColor.b, colors.highlightedColor.a);
             button.colors = colors;
+        }
+    }
+
+
+    void MakeVisible()
+    {
+        if (gameObject.activeSelf == false && Camera.main != null)
+        {
+            Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+            if (pos.z > 0 && pos.x >= 0.0f && pos.x <= 1.0f && pos.y >= 0.0f && pos.y <= 1.0f)
+            {
+                gameObject.SetActive(true);
+            }
+        }
+        if (gameObject.activeSelf == true && Camera.main != null)
+        {
+            Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+            if ((pos.z > 0 && pos.x >= 0.0f && pos.x <= 1.0f && pos.y >= 0.0f && pos.y <= 1.0f) == false)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 

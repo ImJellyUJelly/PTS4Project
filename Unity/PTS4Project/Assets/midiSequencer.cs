@@ -34,6 +34,8 @@ public class midiSequencer : MonoBehaviour
 
     public initializePiano piano;
 
+    public Camera mainCam;
+
     public int channels = 16;
 
     public bool playing;
@@ -137,6 +139,7 @@ public class midiSequencer : MonoBehaviour
     {
         int trackNo = 0;
 
+        Transform contentMidiSong = GameObject.Find("ContentMidiSong").transform;
         foreach (var track in song)
         {
             MidiNotes.Add(new List<GameObject>());
@@ -148,8 +151,7 @@ public class midiSequencer : MonoBehaviour
                     ChannelMessage cm = (ChannelMessage)midiEvent.MidiMessage;
                     if (cm.Command == ChannelCommand.NoteOn && cm.Data2 != 0)
                     {
-                        GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
-                        Debug.Log(cm.Data1);
+                        GameObject midiNote = Instantiate(MidiNote, contentMidiSong);
                         GameObject button = (GameObject)piano.KeyMap[cm.Data1];
                         midiNote.GetComponent<buttonClickTest>().button = button.GetComponent<Button>();
                         midiNote.GetComponent<buttonClickTest>().position = midiEvent.AbsoluteTicks;
@@ -189,6 +191,24 @@ public class midiSequencer : MonoBehaviour
                             case 8:
                                 noteColor = new Color32(0, 125, 125, 255);
                                 break;
+                            case 9:
+                                noteColor = new Color32(0, 125, 125, 255);
+                                break;
+                            case 10:
+                                noteColor = new Color32(0, 125, 125, 255);
+                                break;
+                            case 11:
+                                noteColor = new Color32(0, 125, 125, 255);
+                                break;
+                            case 12:
+                                noteColor = new Color32(0, 125, 125, 255);
+                                break;
+                            case 13:
+                                noteColor = new Color32(0, 125, 125, 255);
+                                break;
+                            case 14:
+                                noteColor = new Color32(0, 125, 125, 255);
+                                break;
                             default:
                                 break;
                         }
@@ -210,14 +230,14 @@ public class midiSequencer : MonoBehaviour
             {
                 foreach (var note in track)
                 {
-                    note.GetComponent<Image>().enabled = true;
+                    note.SetActive(true);
                 }
             }
             else
             {
                 foreach (var note in track)
                 {
-                    note.GetComponent<Image>().enabled = false;
+                    note.SetActive(false);
                 }
             }
             trackIndex++;

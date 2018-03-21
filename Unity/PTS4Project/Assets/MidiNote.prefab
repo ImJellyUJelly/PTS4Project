@@ -40,6 +40,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646a549513ba02946a9d9cb40c39e450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  colors:
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 0}
+    m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_PressedColor: {r: 0, g: 0, b: 0, a: 0}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
+    m_ColorMultiplier: 0
+    m_FadeDuration: 0
+  position: 0
+  sequencer: {fileID: 0}
 --- !u!114 &114545491801370250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -59,7 +69,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 780aacb79c6dda741a84e04543d9058b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

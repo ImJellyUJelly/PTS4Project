@@ -60,7 +60,9 @@ public class midiSequencer : MonoBehaviour {
     }
 
     public void LoadMidi(String path)
-    {        
+    {
+        StopSequence();
+
         if (MidiNotes.Count > 1)
         {
             foreach (var note in MidiNotes)

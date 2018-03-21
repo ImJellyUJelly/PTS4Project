@@ -37,7 +37,6 @@ public class midiSequencer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("");
         MidiNotes = new List<GameObject>();
         sequencer = new Sequencer();
         sequencer.Sequence = new Sequence();
@@ -58,8 +57,6 @@ public class midiSequencer : MonoBehaviour {
         TimeBar.value = Normalize(sequencer.Position, song.GetLength(), 0);
 
         PianoScroll.value = NoteViewScoll.value;
-
-        //Debug.Log(sequencer.Position);
     }
 
     public void LoadMidi(String path)
@@ -133,7 +130,6 @@ public class midiSequencer : MonoBehaviour {
                         GameObject midiNote = Instantiate(MidiNote, GameObject.Find("ContentMidiSong").transform);
                         MidiNotes.Add(midiNote);
 
-                        Debug.Log(cm.Data1);
                         midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (int)noteGrid.GridNote[cm.Data1]);
 
                         Color32 noteColor = new Color32(0, 0, 0,0);
@@ -171,7 +167,6 @@ public class midiSequencer : MonoBehaviour {
                         }
                         midiNote.GetComponent<Image>().color = noteColor;
                     }
-                    //Console.WriteLine("Track:" + trackNo + " " + midiEvent.AbsoluteTicks + ": " + cm.Command + " :" + cm.Data1 + " :" + cm.Data2);                   
                 }
             }
             trackNo++;

@@ -37,6 +37,7 @@ public class midiSequencer : MonoBehaviour
     public Camera mainCam;
 
     public int channels = 16;
+    private int currentTrack = -1;
 
     public bool playing;
 
@@ -209,6 +210,12 @@ public class midiSequencer : MonoBehaviour
                             case 14:
                                 noteColor = new Color32(0, 125, 125, 255);
                                 break;
+                            case 15:
+                                noteColor = new Color32(0, 125, 125, 255);
+                                break;
+                            case 16:
+                                noteColor = new Color32(0, 125, 125, 255);
+                                break;
                             default:
                                 break;
                         }
@@ -222,26 +229,54 @@ public class midiSequencer : MonoBehaviour
 
     public void ChangeTrack(int trackNo)
     {
-        int trackIndex = 0;
+        //int trackIndex = 0;
+        currentTrack = trackNo;
 
+        for (int tracks = 0; tracks < MidiNotes.Count; tracks++)
+        {
+            if (tracks == trackNo || currentTrack == -1)
+            {
+                foreach (var note in MidiNotes[tracks])
+                {
+                    //note.SetActive(true);
+                    note.GetComponent<Image>().enabled = true;
+                    note.GetComponent<buttonClickTest>().enabled = true;
+                }
+            }
+            else
+            {
+                foreach (var note in MidiNotes[tracks])
+                {
+                    //note.SetActive(false);
+                    note.GetComponent<Image>().enabled = false;
+                    note.GetComponent<buttonClickTest>().enabled = false;
+                }
+            }
+        }
+        /*
         foreach (var track in MidiNotes)
         {
             if (trackIndex == trackNo)
             {
                 foreach (var note in track)
                 {
-                    note.SetActive(true);
+                    //note.SetActive(true);
+                    note.GetComponent<Image>().enabled = true;
+                    note.GetComponent<buttonClickTest>().enabled = true;
                 }
             }
             else
             {
                 foreach (var note in track)
                 {
-                    note.SetActive(false);
+                    //note.SetActive(false);
+                    note.GetComponent<Image>().enabled = false;
+                    note.GetComponent<buttonClickTest>().enabled = false;
                 }
             }
             trackIndex++;
         }
+        */
     }
 
     private void Reset()
@@ -261,7 +296,14 @@ public class midiSequencer : MonoBehaviour
 
     private void Sequencer_ChannelMessagePlayed(object sender, ChannelMessageEventArgs e)
     {
-        outDevice.Send(e.Message);
+        if (currentTrack == -1)
+        {
+            outDevice.Send(e.Message);
+        } else if ((e.Message.MidiChannel) == currentTrack)
+        {
+            Debug.Log(e.Message.MidiChannel + " " + currentTrack);
+            outDevice.Send(e.Message);
+        }
     }
 
     private void OnApplicationQuit()

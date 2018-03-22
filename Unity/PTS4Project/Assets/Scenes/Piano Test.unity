@@ -2017,7 +2017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000053402233, y: 0.00005322774}
+  m_AnchoredPosition: {x: -0.000053402233, y: 0.00005739885}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &164328700
@@ -6904,7 +6904,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 725079189}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.311888
+  m_Size: 0.33546594
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12903,6 +12903,8 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
+    - m_Text: All Tracks
+      m_Image: {fileID: 0}
     - m_Text: Track 1
       m_Image: {fileID: 0}
     - m_Text: Track 2
@@ -12914,6 +12916,10 @@ MonoBehaviour:
     - m_Text: Track 5
       m_Image: {fileID: 0}
     - m_Text: Track 6
+      m_Image: {fileID: 0}
+    - m_Text: Track 7
+      m_Image: {fileID: 0}
+    - m_Text: Track 8
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -18243,7 +18249,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Track 1
+  m_Text: All Tracks
 --- !u!222 &1588760581
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -238,7 +238,6 @@ public class midiSequencer : MonoBehaviour
             {
                 foreach (var note in MidiNotes[tracks])
                 {
-                    //note.SetActive(true);
                     note.GetComponent<Image>().enabled = true;
                     note.GetComponent<buttonClickTest>().enabled = true;
                 }
@@ -247,7 +246,6 @@ public class midiSequencer : MonoBehaviour
             {
                 foreach (var note in MidiNotes[tracks])
                 {
-                    //note.SetActive(false);
                     note.GetComponent<Image>().enabled = false;
                     note.GetComponent<buttonClickTest>().enabled = false;
                 }
@@ -299,9 +297,8 @@ public class midiSequencer : MonoBehaviour
         if (currentTrack == -1)
         {
             outDevice.Send(e.Message);
-        } else if ((e.Message.MidiChannel) == currentTrack)
+        } else if ((e.Message.MidiChannel) == currentTrack - 1)
         {
-            Debug.Log(e.Message.MidiChannel + " " + currentTrack);
             outDevice.Send(e.Message);
         }
     }

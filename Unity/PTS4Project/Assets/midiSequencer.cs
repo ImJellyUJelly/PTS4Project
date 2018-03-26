@@ -230,6 +230,8 @@ public class midiSequencer : MonoBehaviour
     public void ChangeTrack(int trackNo)
     {
         //int trackIndex = 0;
+        sequencer.Stop();
+        outDevice.Reset();
         currentTrack = trackNo;
 
         for (int tracks = 0; tracks < MidiNotes.Count; tracks++)
@@ -275,6 +277,7 @@ public class midiSequencer : MonoBehaviour
             trackIndex++;
         }
         */
+        sequencer.Continue();
     }
 
     private void Reset()

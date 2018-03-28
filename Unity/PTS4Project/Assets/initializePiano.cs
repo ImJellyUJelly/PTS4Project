@@ -35,7 +35,7 @@ public class initializePiano : MonoBehaviour {
 
         foreach (int notenumber in KeyMap.Keys)
         {
-            Debug.Log(notenumber);
+            //Debug.Log(notenumber);
         }
 
 	}

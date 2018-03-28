@@ -101,7 +101,6 @@ public class midiSequencer : MonoBehaviour
         ProgressBar.maxValue = song.GetLength();
         ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength(), ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
 
-        Thread.CurrentThread.IsBackground = true;
         ReadSong();
 
         Debug.Log("Loaded " + path);
@@ -230,7 +229,6 @@ public class midiSequencer : MonoBehaviour
     public void ChangeTrack(int trackNo)
     {
         //int trackIndex = 0;
-        sequencer.Stop();
         outDevice.Reset();
         currentTrack = trackNo;
 
@@ -253,31 +251,6 @@ public class midiSequencer : MonoBehaviour
                 }
             }
         }
-        /*
-        foreach (var track in MidiNotes)
-        {
-            if (trackIndex == trackNo)
-            {
-                foreach (var note in track)
-                {
-                    //note.SetActive(true);
-                    note.GetComponent<Image>().enabled = true;
-                    note.GetComponent<buttonClickTest>().enabled = true;
-                }
-            }
-            else
-            {
-                foreach (var note in track)
-                {
-                    //note.SetActive(false);
-                    note.GetComponent<Image>().enabled = false;
-                    note.GetComponent<buttonClickTest>().enabled = false;
-                }
-            }
-            trackIndex++;
-        }
-        */
-        sequencer.Continue();
     }
 
     private void Reset()

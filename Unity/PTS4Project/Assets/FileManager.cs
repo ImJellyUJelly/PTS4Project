@@ -19,15 +19,17 @@ public class FileManager : MonoBehaviour {
         {
             case 0:
                 // make dialog
-                mp = new MidiProject("test", 16);
-                mp.ms = this.ms;
-                mp.AddNote(1, 100, 100, 60, 127);
+                dropdown.value = 0; // dont set stuff to 0 plz
+                //mp = new MidiProject("test", 16);
+                //mp.ms = this.ms;
+                //mp.AddNote(1, 100, 100, 60, 127);
                 break;
             case 1:
                 dropdown.value = 0;
                 OpenExplorer();
                 break;
             case 2:
+                dropdown.value = 0;
                 safeFile();
                 break;
         }

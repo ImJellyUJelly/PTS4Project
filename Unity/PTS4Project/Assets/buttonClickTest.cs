@@ -12,12 +12,14 @@ public class buttonClickTest : MonoBehaviour {
     public midiSequencer sequencer;
 
     private bool played = false;
+    private Camera mainCam;
 
     private void Start()
     {
         InvokeRepeating("MakeVisible", 0.0f, 0.5f);
 
         played = false;
+        mainCam = Camera.main;
     }
 
     // Use this for initialization
@@ -66,17 +68,17 @@ public class buttonClickTest : MonoBehaviour {
 
     void MakeVisible()
     {
-        if (gameObject.activeSelf == false && Camera.main != null)
+        if (gameObject.activeSelf == false)
         {
-            Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+            Vector3 pos = mainCam.WorldToViewportPoint(transform.position);
             if (pos.z > 0 && pos.x >= 0.0f && pos.x <= 1.0f && pos.y >= 0.0f && pos.y <= 1.0f)
             {
                 gameObject.SetActive(true);
             }
         }
-        if (gameObject.activeSelf == true && Camera.main != null)
+        if (gameObject.activeSelf == true)
         {
-            Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+            Vector3 pos = mainCam.WorldToViewportPoint(transform.position);
             if ((pos.z > 0 && pos.x >= 0.0f && pos.x <= 1.0f && pos.y >= 0.0f && pos.y <= 1.0f) == false)
             {
                 gameObject.SetActive(false);

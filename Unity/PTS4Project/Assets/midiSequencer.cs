@@ -138,6 +138,7 @@ public class midiSequencer : MonoBehaviour
     public void ReadSong()
     {
         int trackNo = 0;
+        GameObject previousNote = null;
 
         Transform contentMidiSong = GameObject.Find("ContentMidiSong").transform;
         foreach (var track in song)
@@ -153,10 +154,13 @@ public class midiSequencer : MonoBehaviour
                     {
                         GameObject midiNote = Instantiate(MidiNote, contentMidiSong);
                         GameObject button = (GameObject)piano.KeyMap[cm.Data1];
-                        midiNote.GetComponent<buttonClickTest>().button = button.GetComponent<Button>();
-                        midiNote.GetComponent<buttonClickTest>().position = midiEvent.AbsoluteTicks;
-                        midiNote.GetComponent<buttonClickTest>().sequencer = this;
-                        midiNote.GetComponent<buttonClickTest>().colors = button.GetComponent<Button>().colors;
+                        buttonClickTest midiNoteComponent = midiNote.GetComponent<buttonClickTest>();
+                        Button pianoButton = button.GetComponent<Button>();
+
+                        midiNoteComponent.button = pianoButton;
+                        midiNoteComponent.position = midiEvent.AbsoluteTicks;
+                        midiNoteComponent.sequencer = this;
+                        midiNoteComponent.colors = pianoButton.colors;
                         MidiNotes[trackNo].Add(midiNote);
 
                         midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (int)noteGrid.GridNote[cm.Data1]);
@@ -219,6 +223,20 @@ public class midiSequencer : MonoBehaviour
                                 break;
                         }
                         midiNote.GetComponent<Image>().color = noteColor;
+                        previousNote = midiNote;
+
+                    } else if (cm.Command == ChannelCommand.NoteOff || cm.Command == ChannelCommand.NoteOn && cm.Data2 == 0) // Check for the end of a note.
+                    {
+                        // TODO:
+                        // Longer notes may disappear, maybe increase camera range
+                        // Quickly repeated notes look like a single line, maybe change the graphic to show borders around the note
+                        // Keys don't press for the full duration
+
+                        int duration = (int)previousNote.transform.localPosition.x - midiEvent.AbsoluteTicks;
+                        RectTransform rec = previousNote.GetComponent<RectTransform>();
+
+                        rec.sizeDelta = new Vector2(rec.rect.width - duration, rec.rect.height);
+                        rec.localPosition = new Vector3(rec.localPosition.x - (duration / 2), rec.localPosition.y);
                     }
                 }
             }

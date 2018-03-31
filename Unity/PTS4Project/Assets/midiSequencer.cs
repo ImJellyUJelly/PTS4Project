@@ -39,6 +39,7 @@ public class midiSequencer : MonoBehaviour
     public bool playing;
 
     private NoteGrid noteGrid = new NoteGrid();
+    private int lengthMultiplier = 4;
 
     // Use this for initialization
     void Start()
@@ -64,7 +65,7 @@ public class midiSequencer : MonoBehaviour
     void Update()
     {
         ProgressBar.value = sequencer.Position;
-        TimeBar.value = Normalize(sequencer.Position, song.GetLength(), 0);
+        TimeBar.value = Normalize(sequencer.Position, (song.GetLength()*lengthMultiplier), 0);
 
         PianoScroll.value = NoteViewScoll.value;
     }
@@ -135,14 +136,14 @@ public class midiSequencer : MonoBehaviour
     public void ReadSong()
     {
         int trackNo = 0;
-        GameObject[] previousNote;
+        GameObject[] previousNote; // Circular note buffer
         int previousNoteIndex = 0;
 
         Transform contentMidiSong = GameObject.Find("ContentMidiSong").transform;
         foreach (var track in song)
         {
             MidiNotes.Add(new List<GameObject>());
-            previousNote = new GameObject[6];
+            previousNote = new GameObject[8];
 
             foreach (var midiEvent in track.Iterator())
             {
@@ -192,28 +193,28 @@ public class midiSequencer : MonoBehaviour
                                 noteColor = new Color32(125, 0, 125, 255);
                                 break;
                             case 8:
-                                noteColor = new Color32(0, 125, 125, 255);
+                                noteColor = new Color32(0, 62, 125, 255);
                                 break;
                             case 9:
-                                noteColor = new Color32(0, 125, 125, 255);
+                                noteColor = new Color32(62, 125, 125, 255);
                                 break;
                             case 10:
-                                noteColor = new Color32(0, 125, 125, 255);
+                                noteColor = new Color32(0, 125, 62, 255);
                                 break;
                             case 11:
-                                noteColor = new Color32(0, 125, 125, 255);
+                                noteColor = new Color32(62, 62, 62, 255);
                                 break;
                             case 12:
-                                noteColor = new Color32(0, 125, 125, 255);
+                                noteColor = new Color32(0, 125, 200, 255);
                                 break;
                             case 13:
-                                noteColor = new Color32(0, 125, 125, 255);
+                                noteColor = new Color32(200, 200, 125, 255);
                                 break;
                             case 14:
-                                noteColor = new Color32(0, 125, 125, 255);
+                                noteColor = new Color32(200, 200, 200, 255);
                                 break;
                             case 15:
-                                noteColor = new Color32(0, 125, 125, 255);
+                                noteColor = new Color32(0, 0, 200, 255);
                                 break;
                             case 16:
                                 noteColor = new Color32(0, 125, 125, 255);
@@ -225,7 +226,7 @@ public class midiSequencer : MonoBehaviour
 
                         bool isSameNotePresent = false;
 
-                        for (int noteIndex = 0; noteIndex < previousNote.Length; noteIndex++)
+                        for (int noteIndex = 0; noteIndex < previousNote.Length; ++noteIndex)
                         {
                             if (previousNote[noteIndex] != null && (int)noteGrid.GridNote[cm.Data1] == previousNote[noteIndex].transform.localPosition.y)
                             {
@@ -240,7 +241,7 @@ public class midiSequencer : MonoBehaviour
                         }
                         
                         previousNoteIndex++;
-                        if (previousNoteIndex > 5)
+                        if (previousNoteIndex > 7)
                         {
                             previousNoteIndex = 0;
                         }
@@ -256,11 +257,19 @@ public class midiSequencer : MonoBehaviour
                         {
                             if (note != null && (int)noteGrid.GridNote[cm.Data1] == (int)note.transform.localPosition.y)
                             {
-                                int duration = (int)note.transform.localPosition.x - midiEvent.AbsoluteTicks;
+
+                                int duration = (Math.Abs((int)note.transform.localPosition.x - midiEvent.AbsoluteTicks)/lengthMultiplier)* -1;
                                 RectTransform rec = note.GetComponent<RectTransform>();
 
+                                if (duration < -5000)
+                                {
+                                    Debug.Log("duration: " + duration + " lpX: " + note.transform.localPosition.x + " at: " + midiEvent.AbsoluteTicks + " actual size: " + (rec.rect.width - duration));
+                                    continue;
+                                }
                                 rec.sizeDelta = new Vector2(rec.rect.width - duration, rec.rect.height);
-                                rec.localPosition = new Vector3(rec.localPosition.x - (duration / 2), rec.localPosition.y);
+                                
+                                
+                                rec.localPosition = new Vector3((rec.localPosition.x/ lengthMultiplier) - (duration / 2), rec.localPosition.y);
 
                             } else
                             {

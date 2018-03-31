@@ -1,12 +1,9 @@
-﻿using System.Collections;
+﻿using Assets;
+using Sanford.Multimedia.Midi;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-using Sanford.Multimedia.Midi;
-using System;
-using Assets;
-using System.Threading;
 
 public class midiSequencer : MonoBehaviour
 {
@@ -138,12 +135,14 @@ public class midiSequencer : MonoBehaviour
     public void ReadSong()
     {
         int trackNo = 0;
-        GameObject previousNote = null;
+        GameObject[] previousNote;
+        int previousNoteIndex = 0;
 
         Transform contentMidiSong = GameObject.Find("ContentMidiSong").transform;
         foreach (var track in song)
         {
             MidiNotes.Add(new List<GameObject>());
+            previousNote = new GameObject[6];
 
             foreach (var midiEvent in track.Iterator())
             {
@@ -223,7 +222,28 @@ public class midiSequencer : MonoBehaviour
                                 break;
                         }
                         midiNote.GetComponent<Image>().color = noteColor;
-                        previousNote = midiNote;
+
+                        bool isSameNotePresent = false;
+
+                        for (int noteIndex = 0; noteIndex < previousNote.Length; noteIndex++)
+                        {
+                            if (previousNote[noteIndex] != null && (int)noteGrid.GridNote[cm.Data1] == previousNote[noteIndex].transform.localPosition.y)
+                            {
+                                previousNote[noteIndex] = midiNote;
+                                isSameNotePresent = true;
+                            }
+                        }
+
+                        if (!isSameNotePresent)
+                        {
+                            previousNote[previousNoteIndex] = midiNote;
+                        }
+                        
+                        previousNoteIndex++;
+                        if (previousNoteIndex > 5)
+                        {
+                            previousNoteIndex = 0;
+                        }
 
                     } else if (cm.Command == ChannelCommand.NoteOff || cm.Command == ChannelCommand.NoteOn && cm.Data2 == 0) // Check for the end of a note.
                     {
@@ -232,11 +252,22 @@ public class midiSequencer : MonoBehaviour
                         // Quickly repeated notes look like a single line, maybe change the graphic to show borders around the note
                         // Keys don't press for the full duration
 
-                        int duration = (int)previousNote.transform.localPosition.x - midiEvent.AbsoluteTicks;
-                        RectTransform rec = previousNote.GetComponent<RectTransform>();
+                        foreach (var note in previousNote)
+                        {
+                            if (note != null && (int)noteGrid.GridNote[cm.Data1] == (int)note.transform.localPosition.y)
+                            {
+                                int duration = (int)note.transform.localPosition.x - midiEvent.AbsoluteTicks;
+                                RectTransform rec = note.GetComponent<RectTransform>();
 
-                        rec.sizeDelta = new Vector2(rec.rect.width - duration, rec.rect.height);
-                        rec.localPosition = new Vector3(rec.localPosition.x - (duration / 2), rec.localPosition.y);
+                                rec.sizeDelta = new Vector2(rec.rect.width - duration, rec.rect.height);
+                                rec.localPosition = new Vector3(rec.localPosition.x - (duration / 2), rec.localPosition.y);
+
+                            } else
+                            {
+                                //Debug.Log("Error! Previous note on was not valid.");
+                            }
+                        }
+                        
                     }
                 }
             }

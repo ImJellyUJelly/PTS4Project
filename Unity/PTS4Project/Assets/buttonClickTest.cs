@@ -16,7 +16,7 @@ public class buttonClickTest : MonoBehaviour {
 
     private void Start()
     {
-        InvokeRepeating("MakeVisible", 0.0f, 0.5f);
+        InvokeRepeating("MakeVisible", 0.0f, 2.5f);
 
         played = false;
         mainCam = Camera.main;

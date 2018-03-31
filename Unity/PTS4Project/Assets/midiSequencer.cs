@@ -39,7 +39,8 @@ public class midiSequencer : MonoBehaviour
     public bool playing;
 
     private NoteGrid noteGrid = new NoteGrid();
-    private int lengthMultiplier = 4;
+    public float lengthMultiplier = 2;
+
 
     // Use this for initialization
     void Start()
@@ -64,7 +65,7 @@ public class midiSequencer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProgressBar.value = sequencer.Position;
+        ProgressBar.value = sequencer.Position * lengthMultiplier;
         TimeBar.value = Normalize(sequencer.Position, (song.GetLength()*lengthMultiplier), 0);
 
         PianoScroll.value = NoteViewScoll.value;
@@ -137,13 +138,14 @@ public class midiSequencer : MonoBehaviour
     {
         int trackNo = 0;
         GameObject[] previousNote; // Circular note buffer
+        int bufferSize = 8;
         int previousNoteIndex = 0;
 
         Transform contentMidiSong = GameObject.Find("ContentMidiSong").transform;
         foreach (var track in song)
         {
             MidiNotes.Add(new List<GameObject>());
-            previousNote = new GameObject[8];
+            previousNote = new GameObject[bufferSize];
 
             foreach (var midiEvent in track.Iterator())
             {
@@ -232,6 +234,7 @@ public class midiSequencer : MonoBehaviour
                             {
                                 previousNote[noteIndex] = midiNote;
                                 isSameNotePresent = true;
+                                break;
                             }
                         }
 
@@ -241,7 +244,7 @@ public class midiSequencer : MonoBehaviour
                         }
                         
                         previousNoteIndex++;
-                        if (previousNoteIndex > 7)
+                        if (previousNoteIndex > bufferSize - 1)
                         {
                             previousNoteIndex = 0;
                         }
@@ -258,7 +261,7 @@ public class midiSequencer : MonoBehaviour
                             if (note != null && (int)noteGrid.GridNote[cm.Data1] == (int)note.transform.localPosition.y)
                             {
 
-                                int duration = (Math.Abs((int)note.transform.localPosition.x - midiEvent.AbsoluteTicks)/lengthMultiplier)* -1;
+                                float duration = (Math.Abs((int)note.transform.localPosition.x - midiEvent.AbsoluteTicks)) / lengthMultiplier * -1;
                                 RectTransform rec = note.GetComponent<RectTransform>();
 
                                 if (duration < -5000)
@@ -267,9 +270,11 @@ public class midiSequencer : MonoBehaviour
                                     continue;
                                 }
                                 rec.sizeDelta = new Vector2(rec.rect.width - duration, rec.rect.height);
-                                
-                                
+
+
                                 rec.localPosition = new Vector3((rec.localPosition.x/ lengthMultiplier) - (duration / 2), rec.localPosition.y);
+                                //rec.anchoredPosition = new Vector2((rec.localPosition.x / lengthMultiplier) - (duration / 2), rec.localPosition.y);
+                                //rec.localPosition.Set(((rec.localPosition.x / lengthMultiplier) - (duration / 2)), rec.localPosition.y, rec.localPosition.z);
 
                             } else
                             {

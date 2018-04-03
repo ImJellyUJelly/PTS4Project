@@ -39,7 +39,8 @@ public class midiSequencer : MonoBehaviour
     public bool playing;
 
     private NoteGrid noteGrid = new NoteGrid();
-    public float lengthMultiplier = 2;
+    private float lengthMultiplier = 2;
+    public Slider sliderScale;
 
 
     // Use this for initialization
@@ -54,6 +55,7 @@ public class midiSequencer : MonoBehaviour
 
         ProgressBar = Slider.GetComponent<Slider>();
         TimeBar = MidiScrollBar.GetComponent<Scrollbar>();
+        sliderScale.onValueChanged.AddListener(Slider_OnValueChanged);
 
         outDevice = new OutputDevice(0);
 
@@ -62,13 +64,28 @@ public class midiSequencer : MonoBehaviour
         sequencer.ChannelMessagePlayed += Sequencer_ChannelMessagePlayed;
     }
 
+    
+
     // Update is called once per frame
     void Update()
     {
-        ProgressBar.value = sequencer.Position * lengthMultiplier;
-        TimeBar.value = Normalize(sequencer.Position, (song.GetLength()*lengthMultiplier), 0);
+        ProgressBar.value = ((float)sequencer.Position / lengthMultiplier); //* lengthMultiplier;
+        TimeBar.value = Normalize((float)sequencer.Position, ((float)song.GetLength()*lengthMultiplier), 0);
 
-        PianoScroll.value = NoteViewScoll.value;
+        PianoScroll.value = NoteViewScoll.value;// * lengthMultiplier;
+    }
+
+    private void ResetMidiVisualization()
+    {
+        foreach (var track in MidiNotes)
+        {
+            foreach (var note in track)
+            {
+                Destroy(note);
+            }
+        }
+
+        MidiNotes = new List<List<GameObject>>();
     }
 
     public void LoadMidi(String path)
@@ -77,14 +94,7 @@ public class midiSequencer : MonoBehaviour
 
         if (MidiNotes != null)
         {
-            for (int track = 0; track < MidiNotes.Count; track++)
-            {
-                foreach (var note in MidiNotes[track])
-                {
-                    Destroy(note);
-                }
-                MidiNotes.Remove(MidiNotes[track]);
-            }
+            ResetMidiVisualization();
         }
 
         try
@@ -340,6 +350,34 @@ public class midiSequencer : MonoBehaviour
         {
             outDevice.Send(e.Message);
         }
+    }
+
+    private void Slider_OnValueChanged(float value)
+    {
+        lengthMultiplier = value;
+        ResetMidiVisualization();
+
+        //ProgressBar.maxValue = song.GetLength();
+        //ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength() / lengthMultiplier, ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
+
+
+        //sequencer.Sequence = song;
+        //ProgressBar.maxValue = song.GetLength();
+        //ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength(), ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
+        ReadSong();
+        /*
+        for (int tracks = 0; tracks < MidiNotes.Count; tracks++)
+        {
+            foreach (var note in MidiNotes[tracks])
+            {
+                RectTransform rec = note.GetComponent<RectTransform>();
+                //rec.sizeDelta = new Vector2((rec.rect.width * lengthMultiplier), rec.rect.height);
+
+
+                //rec.localPosition = new Vector3((rec.localPosition.x / lengthMultiplier) - (duration / 2), rec.localPosition.y);
+            }
+        }
+        */
     }
 
     private void OnApplicationQuit()

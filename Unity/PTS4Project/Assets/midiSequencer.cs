@@ -40,7 +40,7 @@ public class midiSequencer : MonoBehaviour
     public bool playing;
 
     private NoteGrid noteGrid = new NoteGrid();
-    private float lengthMultiplier = 2;
+    private float lengthMultiplier = 1;
     public Slider sliderScale;
 
     private GameObject selectedNote;

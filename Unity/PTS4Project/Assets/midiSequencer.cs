@@ -69,15 +69,15 @@ public class midiSequencer : MonoBehaviour
         sequencer.ChannelMessagePlayed += Sequencer_ChannelMessagePlayed;
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
     {
-        ProgressBar.value = ((float)sequencer.Position / lengthMultiplier); //* lengthMultiplier;
+        
         TimeBar.value = Normalize((float)sequencer.Position, ((float)song.GetLength()*lengthMultiplier), 0);
 
-        PianoScroll.value = NoteViewScoll.value;// * lengthMultiplier;
+        PianoScroll.value = NoteViewScoll.value;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -109,6 +109,16 @@ public class midiSequencer : MonoBehaviour
                 Debug.Log("no hit");
             }
 
+            if (sequencer.Position > (int)ProgressBar.value + 50 || sequencer.Position < (int) ProgressBar.value - 50)
+            {
+                Debug.Log(sequencer.Position + " " + ProgressBar.value);
+                sequencer.Position = (int)ProgressBar.value;
+                outDevice.Reset();
+            }
+
+        } else
+        {
+            ProgressBar.value = sequencer.Position;
         }
 
     }
@@ -394,28 +404,7 @@ public class midiSequencer : MonoBehaviour
     {
         lengthMultiplier = value;
         ResetMidiVisualization();
-
-        //ProgressBar.maxValue = song.GetLength();
-        //ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength() / lengthMultiplier, ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
-
-
-        //sequencer.Sequence = song;
-        //ProgressBar.maxValue = song.GetLength();
-        //ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength(), ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
         ReadSong();
-        /*
-        for (int tracks = 0; tracks < MidiNotes.Count; tracks++)
-        {
-            foreach (var note in MidiNotes[tracks])
-            {
-                RectTransform rec = note.GetComponent<RectTransform>();
-                //rec.sizeDelta = new Vector2((rec.rect.width * lengthMultiplier), rec.rect.height);
-
-
-                //rec.localPosition = new Vector3((rec.localPosition.x / lengthMultiplier) - (duration / 2), rec.localPosition.y);
-            }
-        }
-        */
     }
 
     private void OnApplicationQuit()

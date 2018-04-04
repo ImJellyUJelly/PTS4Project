@@ -3,6 +3,7 @@ using Sanford.Multimedia.Midi;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class midiSequencer : MonoBehaviour
@@ -42,6 +43,10 @@ public class midiSequencer : MonoBehaviour
     private float lengthMultiplier = 2;
     public Slider sliderScale;
 
+    private GameObject selectedNote;
+
+    public InputField ifPosition;
+    public InputField ifDuration;
 
     // Use this for initialization
     void Start()
@@ -73,6 +78,39 @@ public class midiSequencer : MonoBehaviour
         TimeBar.value = Normalize((float)sequencer.Position, ((float)song.GetLength()*lengthMultiplier), 0);
 
         PianoScroll.value = NoteViewScoll.value;// * lengthMultiplier;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            pointerData.position = Input.mousePosition;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            if (results.Count > 0)
+            {
+                for (int i = 0; i < results.Count; i++)
+                {
+                    if (results[i].gameObject.layer == LayerMask.NameToLayer("Note"))
+                    {
+                        Debug.Log("Selecting note: " + results[i].gameObject.transform.localPosition + " duration: " + results[i].gameObject.GetComponent<RectTransform>().rect.width);
+                        selectedNote = results[i].gameObject;
+
+                        ifPosition.text = selectedNote.transform.localPosition.x + "";
+                        ifDuration.text = selectedNote.GetComponent<RectTransform>().rect.width + "";
+                    }
+
+                }
+
+            }
+            else
+            {
+                Debug.Log("no hit");
+            }
+
+        }
+
     }
 
     private void ResetMidiVisualization()

@@ -23,12 +23,12 @@ GameObject:
   - component: {fileID: 114545491801370250}
   - component: {fileID: 114034022663448960}
   - component: {fileID: 114289132078346946}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: MidiNote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &114034022663448960
 MonoBehaviour:
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -2572,7 +2572,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 886473258}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.03868106
+  m_Size: 0.038681064
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6736,7 +6736,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 725079189}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.33643317
+  m_Size: 0.33566236
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8407,7 +8407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.9297159}
   m_AnchorMax: {x: 1, y: 0.9297159}
-  m_AnchoredPosition: {x: 0, y: 59.571106}
+  m_AnchoredPosition: {x: 0, y: 59.43463}
   m_SizeDelta: {x: 40254, y: 2519.3}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &704841405
@@ -19805,6 +19805,8 @@ MonoBehaviour:
   channels: 16
   playing: 0
   sliderScale: {fileID: 1038851580}
+  ifPosition: {fileID: 773043793}
+  ifDuration: {fileID: 455779674}
 --- !u!4 &1758599018
 Transform:
   m_ObjectHideFlags: 0
@@ -22808,7 +22810,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 582907077}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.34190845
+  m_Size: 0.34190848
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

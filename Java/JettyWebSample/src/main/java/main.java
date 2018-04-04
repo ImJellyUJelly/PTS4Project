@@ -26,11 +26,11 @@ public class main extends HttpServlet {
         String user = req.getParameter("user");
         String pass = req.getParameter("pass");
 
-        if (user != null & pass != null){
-            req.logout();
-            req.login(user, pass);
-
-        }
+//        if (user != null & pass != null){
+//            req.logout();
+//            req.login(user, pass);
+//
+//        }
 
         resp.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = resp.getWriter();
@@ -38,7 +38,7 @@ public class main extends HttpServlet {
         writer.append("<midi_song>");
 
         if (user != null){
-            writer.append("Logged in as: " + user);
+            writer.append("Logged in as: " + user + ", Password: "+pass+ "  " );
         } else {
             writer.append("Unauthenticated.");
         }

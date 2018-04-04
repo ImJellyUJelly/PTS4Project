@@ -16,7 +16,7 @@ public class Login : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        StartCoroutine(getRequest("localhost:8080/SimpleMavenWebApp/HelloWorld"));
+
     }
 
     IEnumerator getRequest(string uri)
@@ -33,6 +33,34 @@ public class Login : MonoBehaviour
             Debug.Log("Received: " + uwr.downloadHandler.text);
         }
     }
+
+
+    //post request code voor als we het ooit nodig hebben
+    //void Start()
+    //{
+    //    StartCoroutine(postRequest("localhost:8080/SimpleMavenWebApp/HelloWorld"));
+    //}
+
+    //IEnumerator postRequest(string url)
+    //{
+    //    WWWForm form = new WWWForm();
+    //    form.AddField("Username", usernamecorrect);
+    //    form.AddField("Password", passwordcorrect);
+
+    //    UnityWebRequest uwr = UnityWebRequest.Post(url, form);
+    //    yield return uwr.SendWebRequest();
+
+    //    if (uwr.isNetworkError)
+    //    {
+    //        Debug.Log("Error While Sending: " + uwr.error);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Received: " + uwr.downloadHandler.text);
+    //    }
+    //}
+
+
 
     public void Loginbutton()
     {
@@ -52,14 +80,7 @@ public class Login : MonoBehaviour
 
     public void Authenticate()
     {
-        if (username == usernamecorrect && password == passwordcorrect)
-        {
-            print("Succesful log in. Have fun with DAW");
-        }
-        else
-        {
-            Debug.LogWarning("Sorry, try again");
-        }
+        StartCoroutine(getRequest("http://localhost:8080/SimpleMavenWebApp/HelloWorld?user=" + username + "&?pass=" + password));
     }
     // Update is called once per frame
     void Update()

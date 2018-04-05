@@ -7,6 +7,9 @@ public class buttonClickTest : MonoBehaviour {
 
     public Button button;
     public ColorBlock colors;
+    public Color noteColor;
+    public int NoteIndex;
+    public int NoteTrack;
 
     public int position;
     public midiSequencer sequencer;

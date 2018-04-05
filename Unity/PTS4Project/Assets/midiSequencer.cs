@@ -67,6 +67,7 @@ public class midiSequencer : MonoBehaviour
         Reset();
 
         sequencer.ChannelMessagePlayed += Sequencer_ChannelMessagePlayed;
+        ifPosition.onValueChanged.AddListener(InputFieldPosition_OnValueChanged);
     }
 
 
@@ -94,8 +95,16 @@ public class midiSequencer : MonoBehaviour
                 {
                     if (results[i].gameObject.layer == LayerMask.NameToLayer("Note"))
                     {
+
+
                         Debug.Log("Selecting note: " + results[i].gameObject.transform.localPosition + " duration: " + results[i].gameObject.GetComponent<RectTransform>().rect.width);
+                        if (selectedNote != null)
+                        {
+                            selectedNote.GetComponent<Image>().color = selectedNote.GetComponent<buttonClickTest>().noteColor;
+                        }
                         selectedNote = results[i].gameObject;
+                        selectedNote.GetComponent<Image>().color = new Color(255, 255, 255, 255);
+                        
 
                         ifPosition.text = selectedNote.transform.localPosition.x + "";
                         ifDuration.text = selectedNote.GetComponent<RectTransform>().rect.width + "";
@@ -195,6 +204,7 @@ public class midiSequencer : MonoBehaviour
     public void ReadSong()
     {
         int trackNo = 0;
+        int midiEventIndex = 0;
         GameObject[] previousNote; // Circular note buffer
         int bufferSize = 8;
         int previousNoteIndex = 0;
@@ -207,6 +217,8 @@ public class midiSequencer : MonoBehaviour
 
             foreach (var midiEvent in track.Iterator())
             {
+                midiEventIndex++;
+
                 if (midiEvent.MidiMessage.MessageType == MessageType.Channel)
                 {
                     ChannelMessage cm = (ChannelMessage)midiEvent.MidiMessage;
@@ -221,7 +233,9 @@ public class midiSequencer : MonoBehaviour
                         midiNoteComponent.position = midiEvent.AbsoluteTicks;
                         midiNoteComponent.sequencer = this;
                         midiNoteComponent.colors = pianoButton.colors;
+                        midiNoteComponent.NoteTrack = trackNo;
                         MidiNotes[trackNo].Add(midiNote);
+                        midiNoteComponent.NoteIndex = midiEventIndex;
 
                         midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (int)noteGrid.GridNote[cm.Data1]);
 
@@ -282,6 +296,7 @@ public class midiSequencer : MonoBehaviour
                             default:
                                 break;
                         }
+                        midiNoteComponent.noteColor = noteColor;
                         midiNote.GetComponent<Image>().color = noteColor;
 
                         bool isSameNotePresent = false;
@@ -386,6 +401,43 @@ public class midiSequencer : MonoBehaviour
     private float Normalize(float value, float max, float min)
     {
         return (value - min) / (max - min);
+    }
+
+
+    private void InputFieldPosition_OnValueChanged(string arg0)
+    {
+        if (float.Parse(arg0) == selectedNote.transform.localPosition.x)
+        {
+            return;
+        }
+        //Transform noteRect = selectedNote.GetComponent<Transform>();
+        buttonClickTest midiNoteComponent = selectedNote.GetComponent<buttonClickTest>();
+        selectedNote.transform.localPosition = new Vector3(float.Parse(arg0), selectedNote.transform.localPosition.y);
+        Debug.Log("Setting position of: " + selectedNote.name + " to: " + arg0);
+        IEnumerator<Track> enumerator = sequencer.Sequence.GetEnumerator();
+
+        for (int i = 0; i < sequencer.Sequence.Count; i++)
+        {
+            enumerator.MoveNext();
+            Debug.Log("trying to find: " + midiNoteComponent.NoteTrack + " now at: " + i);
+
+            if (i != midiNoteComponent.NoteTrack)
+            {
+                continue;
+            } else
+            {
+               
+                ChannelMessage OldCM = (ChannelMessage)enumerator.Current.GetMidiEvent(midiNoteComponent.NoteIndex).MidiMessage;
+                Debug.Log("Remove Message: " + enumerator.Current.GetMidiEvent(midiNoteComponent.NoteIndex).AbsoluteTicks);
+                enumerator.Current.RemoveAt(midiNoteComponent.NoteIndex);
+                enumerator.Current.Insert(int.Parse(arg0), OldCM);
+                break;
+            }
+            
+
+        }
+
+        //ResetMidiVisualization();
     }
 
 

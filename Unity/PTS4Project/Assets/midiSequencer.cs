@@ -206,7 +206,7 @@ public class midiSequencer : MonoBehaviour
         int trackNo = 0;
         int midiEventIndex = 0;
         GameObject[] previousNote; // Circular note buffer
-        int bufferSize = 8;
+        int bufferSize = 50;
         int previousNoteIndex = 0;
 
         Transform contentMidiSong = GameObject.Find("ContentMidiSong").transform;
@@ -239,7 +239,7 @@ public class midiSequencer : MonoBehaviour
 
                         midiNote.transform.localPosition = new Vector3((midiEvent.AbsoluteTicks), (int)noteGrid.GridNote[cm.Data1]);
 
-                        Color32 noteColor = new Color32(0, 0, 0, 0);
+                        Color32 noteColor = new Color32(0, 0, 0, 255);
                         switch (trackNo)
                         {
                             case 0:
@@ -340,7 +340,7 @@ public class midiSequencer : MonoBehaviour
                                 if (duration < -5000)
                                 {
                                     Debug.Log("duration: " + duration + " lpX: " + note.transform.localPosition.x + " at: " + midiEvent.AbsoluteTicks + " actual size: " + (rec.rect.width - duration));
-                                    continue;
+                                    
                                 }
                                 rec.sizeDelta = new Vector2(rec.rect.width - duration, rec.rect.height);
 
@@ -431,6 +431,7 @@ public class midiSequencer : MonoBehaviour
                 Debug.Log("Remove Message: " + enumerator.Current.GetMidiEvent(midiNoteComponent.NoteIndex).AbsoluteTicks);
                 enumerator.Current.RemoveAt(midiNoteComponent.NoteIndex);
                 enumerator.Current.Insert(int.Parse(arg0), OldCM);
+                //midiNoteComponent.NoteIndex = enumerator.Current.Count;
                 break;
             }
             

@@ -100,11 +100,14 @@ public class midiSequencer : MonoBehaviour
                         Debug.Log("Selecting note: " + results[i].gameObject.transform.localPosition + " duration: " + results[i].gameObject.GetComponent<RectTransform>().rect.width);
                         if (selectedNote != null)
                         {
-                            selectedNote.GetComponent<Image>().color = selectedNote.GetComponent<buttonClickTest>().noteColor;
+                            //selectedNote.GetComponent<Image>().color = selectedNote.GetComponent<buttonClickTest>().noteColor;
+                            selectedNote.GetComponent<Outline>().effectDistance = new Vector2(1, -1);
                         }
                         selectedNote = results[i].gameObject;
-                        selectedNote.GetComponent<Image>().color = new Color(255, 255, 255, 255);
-                        
+                        //selectedNote.GetComponent<Image>().color = new Color(255, 255, 255, 255);
+                        selectedNote.GetComponent<Outline>().effectDistance = new Vector2(6, -6);
+
+
 
                         ifPosition.text = selectedNote.transform.localPosition.x + "";
                         ifDuration.text = selectedNote.GetComponent<RectTransform>().rect.width + "";

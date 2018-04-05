@@ -187,6 +187,8 @@ public class midiSequencer : MonoBehaviour
         sequencer.Stop();
         playing = false;
 
+        outDevice.Reset();
+
         Debug.Log("Pausing");
     }
 
@@ -206,7 +208,7 @@ public class midiSequencer : MonoBehaviour
         int trackNo = 0;
         int midiEventIndex = 0;
         GameObject[] previousNote; // Circular note buffer
-        int bufferSize = 50;
+        int bufferSize = 7;
         int previousNoteIndex = 0;
 
         Transform contentMidiSong = GameObject.Find("ContentMidiSong").transform;
@@ -340,7 +342,7 @@ public class midiSequencer : MonoBehaviour
                                 if (duration < -5000)
                                 {
                                     Debug.Log("duration: " + duration + " lpX: " + note.transform.localPosition.x + " at: " + midiEvent.AbsoluteTicks + " actual size: " + (rec.rect.width - duration));
-                                    
+                                    continue;
                                 }
                                 rec.sizeDelta = new Vector2(rec.rect.width - duration, rec.rect.height);
 

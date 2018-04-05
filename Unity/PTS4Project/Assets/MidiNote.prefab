@@ -49,6 +49,9 @@ MonoBehaviour:
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 0
     m_FadeDuration: 0
+  noteColor: {r: 0, g: 0, b: 0, a: 0}
+  NoteIndex: 0
+  NoteTrack: 0
   position: 0
   sequencer: {fileID: 0}
 --- !u!114 &114289132078346946
@@ -114,5 +117,5 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -20915.49, y: 0}
-  m_SizeDelta: {x: 0, y: 34.13}
+  m_SizeDelta: {x: 30, y: 34.13}
   m_Pivot: {x: 0.5, y: 1.0000018}

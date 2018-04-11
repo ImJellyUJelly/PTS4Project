@@ -24,7 +24,7 @@ public class FileManager : MonoBehaviour {
 
 >>>>>>> a98661afe4944d6de79ba1209fb4e712e2d9a258
     private string path;
-    public midiSequencer ms;
+    public MidiManager ms;
     public Dropdown dropdown;
 
     public void onChange()

@@ -7524,6 +7524,7 @@ GameObject:
   - component: {fileID: 637121560}
   - component: {fileID: 637121559}
   - component: {fileID: 637121561}
+  - component: {fileID: 637121562}
   m_Layer: 5
   m_Name: Dialog
   m_TagString: Untagged
@@ -7599,6 +7600,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.197}
   m_EffectDistance: {x: 10, y: -10}
   m_UseGraphicAlpha: 1
+--- !u!114 &637121562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 637121557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e670b81cdfa094787e1f1ac6c3a5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Error.;Line Break
 --- !u!1 &638862722
 GameObject:
   m_ObjectHideFlags: 0
@@ -20818,7 +20831,7 @@ GameObject:
   - component: {fileID: 1844182872}
   - component: {fileID: 1844182871}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

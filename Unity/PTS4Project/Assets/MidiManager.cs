@@ -107,8 +107,7 @@ public class MidiManager : MonoBehaviour
                 Debug.Log(midiSequencer.sequencer.Position + " " + ProgressBar.value);
                 midiSequencer.sequencer.Position = (int)ProgressBar.value;
 
-                midiSequencer.PauseSequence();
-                midiSequencer.PlaySequence();
+                midiSequencer.outDevice.Reset();
             }
 
         }
@@ -349,7 +348,7 @@ public class MidiManager : MonoBehaviour
     public void ChangeTrack(int trackNo)
     {
         //int trackIndex = 0;
-        midiSequencer.PauseSequence();
+        midiSequencer.outDevice.Reset();
         midiSequencer.currentTrack = trackNo;
 
         for (int tracks = 0; tracks < MidiNotes.Count; tracks++)

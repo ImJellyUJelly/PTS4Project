@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class midiSequencer : MonoBehaviour
 {
-    OutputDevice outDevice;
+    public OutputDevice outDevice;
     public Sequence song;
     public Sequencer sequencer;
 

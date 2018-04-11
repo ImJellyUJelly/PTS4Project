@@ -154,13 +154,12 @@ public class MidiManager : MonoBehaviour
                 ChannelMessage OldCM = (ChannelMessage)enumerator.Current.GetMidiEvent(midiNoteComponent.NoteIndex).MidiMessage;
                 ChannelMessage OldCMOff = (ChannelMessage)enumerator.Current.GetMidiEvent(midiNoteComponent.NoteOffIndex).MidiMessage;
                 Debug.Log("Remove Message: " + enumerator.Current.GetMidiEvent(midiNoteComponent.NoteIndex).AbsoluteTicks);
-                MidiNotes[i].RemoveAt(midiNoteComponent.NoteOffIndex);
-                MidiNotes[i].RemoveAt(midiNoteComponent.NoteIndex);
 
                 enumerator.Current.RemoveAt(midiNoteComponent.NoteOffIndex);
                 enumerator.Current.RemoveAt(midiNoteComponent.NoteIndex);
                 enumerator.Current.Insert(int.Parse(arg0), OldCM);
                 enumerator.Current.Insert(int.Parse(arg0) - (int)midiNoteComponent.duration, OldCMOff);
+                ReadSong();
                 break;
             }
 

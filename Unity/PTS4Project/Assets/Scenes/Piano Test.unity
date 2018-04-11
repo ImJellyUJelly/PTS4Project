@@ -2806,6 +2806,8 @@ MonoBehaviour:
   m_Value: -1
   m_Options:
     m_Options:
+    - m_Text: File
+      m_Image: {fileID: 0}
     - m_Text: New
       m_Image: {fileID: 0}
     - m_Text: Open
@@ -19382,7 +19384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 435.04517, y: 0}
+  m_AnchoredPosition: {x: 435, y: 0}
   m_SizeDelta: {x: 138.2, y: 29.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1625151154
@@ -21115,7 +21117,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New
+  m_Text: File
 --- !u!222 &1844024911
 CanvasRenderer:
   m_ObjectHideFlags: 0

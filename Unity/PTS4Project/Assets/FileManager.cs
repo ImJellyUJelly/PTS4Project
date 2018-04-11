@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+﻿
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -7,22 +7,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
+using Assets;
 
 public class FileManager : MonoBehaviour
 {
-=======
-﻿using Assets;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class FileManager : MonoBehaviour {
 
     private MidiProject mp;
 
->>>>>>> a98661afe4944d6de79ba1209fb4e712e2d9a258
     private string path;
     public MidiManager ms;
     public Dropdown dropdown;
@@ -31,28 +22,15 @@ public class FileManager : MonoBehaviour {
     {
         switch (dropdown.value)
         {
-            case 0:
-<<<<<<< HEAD
-                break;
             case 1:
-                OpenExplorer();
-                break;
-            case 2:
-=======
-                // make dialog
-                dropdown.value = 0; // dont set stuff to 0 plz
-                //mp = new MidiProject("test", 16);
-                //mp.ms = this.ms;
-                //mp.AddNote(1, 100, 100, 60, 127);
-                break;
-            case 1:
-                dropdown.value = 0;
-                OpenExplorer();
                 break;
             case 2:
                 dropdown.value = 0;
->>>>>>> a98661afe4944d6de79ba1209fb4e712e2d9a258
-                safeFile();
+                OpenExplorer();
+                break;
+            case 3:
+                dropdown.value = 0;
+                SaveFile();
                 break;
         }
     }
@@ -68,24 +46,13 @@ public class FileManager : MonoBehaviour {
         }
     }
 
-<<<<<<< HEAD
-    public void safeFile()
-=======
-    public void safeFile() //save?
->>>>>>> a98661afe4944d6de79ba1209fb4e712e2d9a258
+    public void SaveFile()
     {
         path = EditorUtility.SaveFilePanel("", "../", "", "mid");
         if (path.Length != 0)
         {
-<<<<<<< HEAD
-        }
-    }
-
-=======
             var fileContent = path;
             Debug.Log(fileContent);
-            //ms.SaveFile(fileContent);
         }
     }
->>>>>>> a98661afe4944d6de79ba1209fb4e712e2d9a258
 }

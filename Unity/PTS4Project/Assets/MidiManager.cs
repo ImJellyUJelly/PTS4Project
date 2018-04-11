@@ -139,32 +139,7 @@ public class MidiManager : MonoBehaviour
         Debug.Log("Setting position of: " + selectedNote.name + " to: " + arg0);
         IEnumerator<Track> enumerator = midiSequencer.sequencer.Sequence.GetEnumerator();
 
-        for (int i = 0; i < midiSequencer.sequencer.Sequence.Count; i++)
-        {
-            enumerator.MoveNext();
-            Debug.Log("trying to find: " + midiNoteComponent.NoteTrack + " now at: " + i);
-
-            if (i != midiNoteComponent.NoteTrack)
-            {
-                continue;
-            }
-            else
-            {
-
-                ChannelMessage OldCM = (ChannelMessage)enumerator.Current.GetMidiEvent(midiNoteComponent.NoteIndex).MidiMessage;
-                ChannelMessage OldCMOff = (ChannelMessage)enumerator.Current.GetMidiEvent(midiNoteComponent.NoteOffIndex).MidiMessage;
-                Debug.Log("Remove Message: " + enumerator.Current.GetMidiEvent(midiNoteComponent.NoteIndex).AbsoluteTicks);
-
-                enumerator.Current.RemoveAt(midiNoteComponent.NoteOffIndex);
-                enumerator.Current.RemoveAt(midiNoteComponent.NoteIndex);
-                enumerator.Current.Insert(int.Parse(arg0), OldCM);
-                enumerator.Current.Insert(int.Parse(arg0) - (int)midiNoteComponent.duration, OldCMOff);
-                ReadSong();
-                break;
-            }
-
-
-        }
+        midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].Move(midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].GetMidiEvent(midiNoteComponent.NoteIndex), int.Parse(arg0));
     }
 
     public void LoadMidi(String path)

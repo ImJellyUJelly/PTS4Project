@@ -10,7 +10,7 @@ namespace Assets
     class TrackManager : MonoBehaviour
     {
         private string path;
-        public midiSequencer ms;
+        public MidiManager ms;
         public Dropdown dropdown;
 
         public void onChange()

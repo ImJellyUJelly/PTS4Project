@@ -13,7 +13,7 @@ namespace Assets
         private int channels;
         private Sequence sequence;
 
-        public midiSequencer ms;
+        public MidiManager ms;
 
         public MidiProject(String name, int channels)
         {

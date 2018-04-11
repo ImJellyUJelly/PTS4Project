@@ -11,8 +11,6 @@ public class Login : MonoBehaviour
     public GameObject Password;
     private string username;
     private string password;
-    private string usernamecorrect = "Test";
-    private string passwordcorrect = "Test";
     // Use this for initialization
     void Start()
     {
@@ -80,7 +78,8 @@ public class Login : MonoBehaviour
 
     public void Authenticate()
     {
-        StartCoroutine(getRequest("http://localhost:8080/SimpleMavenWebApp/HelloWorld?user=" + username + "&?pass=" + password));
+        StartCoroutine(getRequest("http://localhost:8080/SimpleMavenWebApp/HelloWorld?user="+ username +"&pass="+ password +""));
+
     }
     // Update is called once per frame
     void Update()

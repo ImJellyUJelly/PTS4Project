@@ -1,3 +1,5 @@
+package main.java;
+
 import javax.naming.CommunicationException;
 import javax.security.auth.login.LoginException;
 import javax.servlet.Servlet;
@@ -31,7 +33,6 @@ public class main extends HttpServlet {
 //            req.login(user, pass);
 //
 //        }
-
         resp.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = resp.getWriter();
         writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");

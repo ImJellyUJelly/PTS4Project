@@ -16,7 +16,7 @@ public class DialogBox : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Show("you're mom triple gay;XD", ButtonType.OK);
+            Show("Ayy lmao;XD", ButtonType.OK);
         }
     }
 

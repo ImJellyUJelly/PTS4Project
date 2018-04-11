@@ -152,9 +152,14 @@ public class MidiManager : MonoBehaviour
             {
 
                 ChannelMessage OldCM = (ChannelMessage)enumerator.Current.GetMidiEvent(midiNoteComponent.NoteIndex).MidiMessage;
+                ChannelMessage OldCMOff = (ChannelMessage)enumerator.Current.GetMidiEvent(midiNoteComponent.NoteOffIndex).MidiMessage;
                 Debug.Log("Remove Message: " + enumerator.Current.GetMidiEvent(midiNoteComponent.NoteIndex).AbsoluteTicks);
+
+                enumerator.Current.RemoveAt(midiNoteComponent.NoteOffIndex);
                 enumerator.Current.RemoveAt(midiNoteComponent.NoteIndex);
                 enumerator.Current.Insert(int.Parse(arg0), OldCM);
+                enumerator.Current.Insert(int.Parse(arg0) - (int)midiNoteComponent.duration, OldCMOff);
+                ReadSong();
                 break;
             }
 
@@ -320,6 +325,8 @@ public class MidiManager : MonoBehaviour
 
                                 float duration = (Math.Abs((int)note.transform.localPosition.x - midiEvent.AbsoluteTicks)) / lengthMultiplier * -1;
                                 RectTransform rec = note.GetComponent<RectTransform>();
+                                note.GetComponent<MidiNote>().NoteOffIndex = midiEventIndex;
+                                note.GetComponent<MidiNote>().duration = duration;
 
                                 if (duration < -5000)
                                 {

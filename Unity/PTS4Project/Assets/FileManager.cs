@@ -1,11 +1,16 @@
-﻿using Assets;
-using System.Collections;
+﻿
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Sanford.Multimedia.Midi;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
+using Assets;
 
-public class FileManager : MonoBehaviour {
+public class FileManager : MonoBehaviour
+{
 
     private MidiProject mp;
 
@@ -17,20 +22,15 @@ public class FileManager : MonoBehaviour {
     {
         switch (dropdown.value)
         {
-            case 0:
-                // make dialog
-                dropdown.value = 0; // dont set stuff to 0 plz
-                //mp = new MidiProject("test", 16);
-                //mp.ms = this.ms;
-                //mp.AddNote(1, 100, 100, 60, 127);
-                break;
             case 1:
-                dropdown.value = 0;
-                OpenExplorer();
                 break;
             case 2:
                 dropdown.value = 0;
-                safeFile();
+                OpenExplorer();
+                break;
+            case 3:
+                dropdown.value = 0;
+                SaveFile();
                 break;
         }
     }
@@ -46,14 +46,13 @@ public class FileManager : MonoBehaviour {
         }
     }
 
-    public void safeFile() //save?
+    public void SaveFile()
     {
         path = EditorUtility.SaveFilePanel("", "../", "", "mid");
         if (path.Length != 0)
         {
             var fileContent = path;
             Debug.Log(fileContent);
-            //ms.SaveFile(fileContent);
         }
     }
 }

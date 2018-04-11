@@ -14,17 +14,16 @@ import java.io.PrintWriter;
 public class main extends HttpServlet {
 
     private String message;
+    private Seizure seizure;
 
     @Override
     public void init() throws ServletException {
+        seizure = new Seizure();
         message = "Dit is een test... わ";
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
-
         String user = req.getParameter("user");
         String pass = req.getParameter("pass");
 
@@ -48,8 +47,6 @@ public class main extends HttpServlet {
 
 
         writer.append("</midi_song>");
-
-
     }
 
     @Override

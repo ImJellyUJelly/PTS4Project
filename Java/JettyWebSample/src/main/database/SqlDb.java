@@ -7,5 +7,12 @@ public class SqlDb {
         this.database = new Database();
     }
 
+    public String loadMidiFile(String id) {
+        // TODO: Load the string (of the midifile) from the database
+        return "";
+    }
 
+    public void saveMidiFile(String file) {
+        // TODO: Save the string (of the midifile) to the database
+    }
 }

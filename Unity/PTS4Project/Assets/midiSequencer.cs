@@ -48,6 +48,8 @@ public class midiSequencer : MonoBehaviour
     public InputField ifPosition;
     public InputField ifDuration;
 
+    private System.Diagnostics.Stopwatch stopwatch;
+
     // Use this for initialization
     void Start()
     {
@@ -68,6 +70,8 @@ public class midiSequencer : MonoBehaviour
 
         sequencer.ChannelMessagePlayed += Sequencer_ChannelMessagePlayed;
         ifPosition.onValueChanged.AddListener(InputFieldPosition_OnValueChanged);
+
+        
     }
 
 
@@ -150,7 +154,9 @@ public class midiSequencer : MonoBehaviour
 
     public void LoadMidi(String path)
     {
+        stopwatch = System.Diagnostics.Stopwatch.StartNew();
         StopSequence();
+        Reset();
 
         if (MidiNotes != null)
         {
@@ -171,8 +177,9 @@ public class midiSequencer : MonoBehaviour
         ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(song.GetLength(), ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
 
         ReadSong();
+        stopwatch.Stop();
 
-        Debug.Log("Loaded " + path);
+        Debug.Log("Loaded " + path + " in " + stopwatch.ElapsedMilliseconds / 1000 + " seconds.");
 
     }
 

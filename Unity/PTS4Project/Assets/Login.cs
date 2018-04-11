@@ -80,7 +80,8 @@ public class Login : MonoBehaviour
 
     public void Authenticate()
     {
-        StartCoroutine(getRequest("http://localhost:8080/SimpleMavenWebApp/HelloWorld?user=" + username + "&?pass=" + password));
+        StartCoroutine(getRequest("http://localhost:8080/SimpleMavenWebApp/HelloWorld?user="+ username +"&pass="+ password +""));
+
     }
     // Update is called once per frame
     void Update()

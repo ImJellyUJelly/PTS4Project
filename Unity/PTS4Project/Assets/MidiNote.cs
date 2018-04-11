@@ -9,9 +9,11 @@ public class MidiNote : MonoBehaviour {
     public ColorBlock colors;
     public Color noteColor;
     public int NoteIndex;
+    public int NoteOffIndex;
     public int NoteTrack;
 
     public int position;
+    public float duration;
     public midiSequencer sequencer;
 
     private bool played = false;

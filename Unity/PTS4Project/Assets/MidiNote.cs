@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class buttonClickTest : MonoBehaviour {
+public class MidiNote : MonoBehaviour {
 
     public Button button;
     public ColorBlock colors;

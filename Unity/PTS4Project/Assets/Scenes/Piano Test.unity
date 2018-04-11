@@ -2979,6 +2979,49 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &242099513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 242099515}
+  - component: {fileID: 242099514}
+  m_Layer: 0
+  m_Name: MidiSequencer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &242099514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242099513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f37a215f72aed4fbcc6c272c0a0637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  channels: 16
+  currentTrack: -1
+  playing: 0
+--- !u!4 &242099515
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242099513}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 602.6256, y: 422.22647, z: -3.6872}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &247295547
 GameObject:
   m_ObjectHideFlags: 0
@@ -5087,7 +5130,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1758599017}
+      - m_Target: {fileID: 242099514}
         m_MethodName: PauseSequence
         m_Mode: 1
         m_Arguments:
@@ -5782,7 +5825,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2075154948}
   m_HandleRect: {fileID: 2075154947}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6119,7 +6162,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1758599017}
+      - m_Target: {fileID: 242099514}
         m_MethodName: PlaySequence
         m_Mode: 1
         m_Arguments:
@@ -6736,7 +6779,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 725079189}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.311844
+  m_Size: 0.31190723
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8407,7 +8450,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.9297159}
   m_AnchorMax: {x: 1, y: 0.9297159}
-  m_AnchoredPosition: {x: 0, y: 59.39142}
+  m_AnchoredPosition: {x: 0, y: 59.403625}
   m_SizeDelta: {x: 40254, y: 2519.3}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &704841405
@@ -9236,7 +9279,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1758599017}
+      - m_Target: {fileID: 242099514}
         m_MethodName: StopSequence
         m_Mode: 1
         m_Arguments:
@@ -19769,7 +19812,7 @@ GameObject:
   - component: {fileID: 1758599018}
   - component: {fileID: 1758599017}
   m_Layer: 0
-  m_Name: MidiSequencer
+  m_Name: MidiManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19783,7 +19826,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1758599016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7f37a215f72aed4fbcc6c272c0a0637, type: 3}
+  m_Script: {fileID: 11500000, guid: d29af7f9788c74a468e284e739cf9cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Slider: {fileID: 232157498}
@@ -19792,21 +19835,13 @@ MonoBehaviour:
   MidiScrollBar: {fileID: 208905478}
   PianoScroll: {fileID: 2019274794}
   NoteViewScoll: {fileID: 540069065}
-  Octave:
-  - {fileID: 979871395}
-  - {fileID: 1960574384}
-  - {fileID: 1086185067}
-  - {fileID: 1809638636}
-  - {fileID: 1300354385}
-  - {fileID: 9571668}
-  - {fileID: 1967553314}
+  Octave: []
   piano: {fileID: 181008927}
-  mainCam: {fileID: 1825438295}
-  channels: 16
-  playing: 0
+  mainCam: {fileID: 0}
   sliderScale: {fileID: 1038851580}
   ifPosition: {fileID: 773043793}
   ifDuration: {fileID: 455779674}
+  midiSequencer: {fileID: 242099514}
 --- !u!4 &1758599018
 Transform:
   m_ObjectHideFlags: 0

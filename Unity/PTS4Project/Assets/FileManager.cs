@@ -10,7 +10,7 @@ public class FileManager : MonoBehaviour {
     private MidiProject mp;
 
     private string path;
-    public midiSequencer ms;
+    public MidiManager ms;
     public Dropdown dropdown;
 
     public void onChange()

@@ -11,8 +11,6 @@ public class Login : MonoBehaviour
     public GameObject Password;
     private string username;
     private string password;
-    private string usernamecorrect = "Test";
-    private string passwordcorrect = "Test";
     // Use this for initialization
     void Start()
     {

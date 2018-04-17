@@ -1,6 +1,6 @@
-package main.java;
+package java;
 
-import main.database.SqlDb;
+import database.SqlDb;
 
 public class Seizure { // facade
     private SqlDb database;

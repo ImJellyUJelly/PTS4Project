@@ -1,4 +1,4 @@
-package main.database;
+package database;
 
 public class SqlDb {
     // This class will be used to push statements to the database, using Database-class for: connection, statement and resultset.

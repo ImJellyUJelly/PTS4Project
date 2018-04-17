@@ -140,8 +140,6 @@ public class MidiManager : MonoBehaviour
 
 
         midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].Move(midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].GetMidiEvent(midiNoteComponent.NoteIndex), int.Parse(arg0));
-        midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].RemoveAt(midiNoteComponent.NoteOffIndex);
-        midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].RemoveAt(midiNoteComponent.NoteIndex);
     }
 
     public void LoadMidi(String path)

@@ -137,11 +137,9 @@ public class MidiManager : MonoBehaviour
         MidiNote midiNoteComponent = selectedNote.GetComponent<MidiNote>();
         selectedNote.transform.localPosition = new Vector3(float.Parse(arg0), selectedNote.transform.localPosition.y);
         Debug.Log("Setting position of: " + selectedNote.name + " to: " + arg0);
-
+        IEnumerator<Track> enumerator = midiSequencer.sequencer.Sequence.GetEnumerator();
 
         midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].Move(midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].GetMidiEvent(midiNoteComponent.NoteIndex), int.Parse(arg0));
-        midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].RemoveAt(midiNoteComponent.NoteOffIndex);
-        midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].RemoveAt(midiNoteComponent.NoteIndex);
     }
 
     public void LoadMidi(String path)
@@ -173,6 +171,7 @@ public class MidiManager : MonoBehaviour
     public void ReadSong()
     {
         int trackNo = 0;
+        int midiEventIndex = 0;
         GameObject[] previousNote;
         int bufferSize = 7;
         int previousNoteIndex = 0;
@@ -180,7 +179,6 @@ public class MidiManager : MonoBehaviour
         Transform contentMidiSong = GameObject.Find("ContentMidiSong").transform;
         foreach (var track in midiSequencer.song)
         {
-            int midiEventIndex = 0;
             MidiNotes.Add(new List<GameObject>());
             previousNote = new GameObject[bufferSize];
 

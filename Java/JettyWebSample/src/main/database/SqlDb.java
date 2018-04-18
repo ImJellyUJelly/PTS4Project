@@ -40,8 +40,6 @@ public class SqlDb {
             PreparedStatement ps = sqlConnection.getConnection().prepareStatement(query);
 
             sqlConnection.setResult(ps.executeQuery());
-
-            // TODO: input the String into the database
         } catch(Exception ex) {
             //Do nothing
             ex.printStackTrace();

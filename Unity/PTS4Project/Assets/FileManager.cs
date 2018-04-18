@@ -26,6 +26,11 @@ public class FileManager : MonoBehaviour
         switch (dropdown.value)
         {
             case 1:
+                mp = new MidiProject("test", 16);
+                mp.ms = this.ms;
+                mp.AddNote(1, 100, 100, 60, 127);
+                mp.AddNote(1, 200, 200, 61, 127);
+                mp.AddNote(1, 300, 300, 62, 127);
                 break;
             case 2:
                 dropdown.value = 0;

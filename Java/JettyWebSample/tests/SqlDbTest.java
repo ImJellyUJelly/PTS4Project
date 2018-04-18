@@ -1,13 +1,23 @@
 package tests;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class SqlDbTest {
 
-    @org.junit.Test
-    public void getMidiStringById() {
-        // TODO: Create test
+    @Before
+    public void SetUp() {
+        String midiFile = "<xml>dit is dus een midifile</xml>";
     }
 
-    @org.junit.Test
+    @Test
+    public void getMidiStringById() {
+        // TODO: Create test
+
+
+    }
+
+    @Test
     public void insertMidiString() {
         // TODO: Create test
     }

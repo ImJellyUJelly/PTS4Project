@@ -42,6 +42,7 @@ public class SqlDb {
             sqlConnection.setResult(ps.executeQuery());
 
             // TODO: input the String into the database
+            // 
         } catch(Exception ex) {
             //Do nothing
             ex.printStackTrace();

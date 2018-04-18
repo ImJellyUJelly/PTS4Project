@@ -1,13 +1,7 @@
-﻿
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using Sanford.Multimedia.Midi;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Experimental.UIElements;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Assets;
+using SFB;
 
 public class FileManager : MonoBehaviour
 {
@@ -17,6 +11,15 @@ public class FileManager : MonoBehaviour
     private string path;
     public MidiManager ms;
     public Dropdown dropdown;
+    public ExtensionFilter[] filters;
+
+    private void Awake()
+    {
+        filters = new ExtensionFilter[]
+        {
+            new ExtensionFilter("Midi Files", "mid")
+        };
+    }
 
     public void onChange()
     {
@@ -37,18 +40,19 @@ public class FileManager : MonoBehaviour
 
     public void OpenExplorer()
     {
-        path = EditorUtility.OpenFilePanel("", "../", "mid");
+        path = StandaloneFileBrowser.OpenFilePanel("Open MIDI", "", filters, false)[0];
         if (path.Length != 0)
         {
             var fileContent = path;
             Debug.Log(fileContent);
             ms.LoadMidi(fileContent);
+            
         }
     }
 
     public void SaveFile()
     {
-        path = EditorUtility.SaveFilePanel("", "../", "", "mid");
+        path = StandaloneFileBrowser.SaveFilePanel("Save MIDI", "", "New Midi", filters);
         if (path.Length != 0)
         {
             var fileContent = path;

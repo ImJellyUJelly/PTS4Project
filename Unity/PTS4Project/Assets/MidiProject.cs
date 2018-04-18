@@ -7,18 +7,15 @@ using UnityEngine;
 
 namespace Assets
 {
-    class MidiProject
+    public class MidiProject : MonoBehaviour
     {
-        private String name;
-        private int channels;
+        public  int channels;
         private Sequence sequence;
 
         public MidiManager ms;
 
-        public MidiProject(String name, int channels)
+        private void Start()
         {
-            this.name = name;
-            this.channels = channels;
 
             sequence = new Sequence();
 
@@ -35,8 +32,8 @@ namespace Assets
             ChannelMessage cmOn = new ChannelMessage(ChannelCommand.NoteOn, track, note, velocity);
             ChannelMessage cmOff = new ChannelMessage(ChannelCommand.NoteOff, track, note, velocity);
 
-            sequence[track].Insert(position, cmOff);
-            sequence[track].Insert(position + duration, cmOn);
+            sequence[track].Insert(position, cmOn);
+            sequence[track].Insert(position + duration, cmOff);
 
             Debug.Log("Inserted note at: track: " + track + " position: " + position + " duration: " + duration + " note: " + note + " velocity: " + velocity);
 

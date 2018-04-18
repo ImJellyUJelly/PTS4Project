@@ -9,7 +9,7 @@ public class SqlDb {
         Database sqlConnection = new Database();
         try{
             sqlConnection.setStatement(sqlConnection.getConnection().createStatement());
-            String query = ""; // TODO: Make the query
+            String query = "SELECT XmlString FROM Midi-Project WHERE MPID = ?;"; // TODO: Make the query
 
             PreparedStatement ps = sqlConnection.getConnection().prepareStatement(query);
             ps.setInt(1, id);
@@ -35,13 +35,12 @@ public class SqlDb {
         Database sqlConnection = new Database();
         try{
             sqlConnection.setStatement(sqlConnection.getConnection().createStatement());
-            String query = ""; // TODO: Make the query
+            String query = "INSERT INTO dbo.Midi-Project VALUES (?);"; // TODO: Make the query
 
             PreparedStatement ps = sqlConnection.getConnection().prepareStatement(query);
+            ps.setString(1, midiFile);
 
-            sqlConnection.setResult(ps.executeQuery());
-
-            // TODO: input the String into the database
+            ps.executeQuery();
         } catch(Exception ex) {
             //Do nothing
             ex.printStackTrace();

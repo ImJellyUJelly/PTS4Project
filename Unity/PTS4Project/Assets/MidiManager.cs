@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class MidiManager : MonoBehaviour
 {
-
+    public MidiProject midiProject;
         public GameObject Slider;
         private Slider ProgressBar;
 
@@ -40,6 +40,8 @@ public class MidiManager : MonoBehaviour
 
         public InputField ifPosition;
         public InputField ifDuration;
+    public InputField ifNoteNumber;
+    public InputField ifVelocity;
 
     public midiSequencer midiSequencer;
     private System.Diagnostics.Stopwatch stopwatch;
@@ -129,7 +131,13 @@ public class MidiManager : MonoBehaviour
 
     private void InputFieldPosition_OnValueChanged(string arg0)
     {
-        if (float.Parse(arg0) == selectedNote.transform.localPosition.x)
+        float position;
+
+        if (arg0 == null ||
+            float.TryParse(arg0, out position) ||
+            selectedNote == null ||
+            position == selectedNote.transform.localPosition.x
+            )
         {
             return;
         }
@@ -140,6 +148,33 @@ public class MidiManager : MonoBehaviour
         IEnumerator<Track> enumerator = midiSequencer.sequencer.Sequence.GetEnumerator();
 
         midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].Move(midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].GetMidiEvent(midiNoteComponent.NoteIndex), int.Parse(arg0));
+    }
+
+    public void AddNote()
+    {
+        if (midiProject != null)
+        {
+            int position;
+            int duration;
+            int notenumber;
+            int velocity;
+
+            if (int.TryParse(ifPosition.text, out position) &&
+                int.TryParse(ifDuration.text, out duration) &&
+                int.TryParse(ifNoteNumber.text, out notenumber) &&
+                int.TryParse(ifVelocity.text, out velocity))
+            {
+                midiProject.AddNote(1, position, duration, notenumber, velocity);
+                ResetMidiVisualization();
+                ReadSong();
+            } else
+            {
+                Debug.Log("Could not parse all values.");
+            }
+        } else
+        {
+            Debug.Log("Midi project is null");
+        }
     }
 
     public void LoadMidi(String path)

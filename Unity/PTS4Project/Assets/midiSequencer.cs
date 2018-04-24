@@ -20,7 +20,7 @@ public class midiSequencer : MonoBehaviour
     
     private System.Diagnostics.Stopwatch stopwatch;
 
-    void Start()
+    public void Start()
     {
         playing = false;
         

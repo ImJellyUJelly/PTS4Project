@@ -46,7 +46,7 @@ public class MidiManager : MonoBehaviour
     public midiSequencer midiSequencer;
     private System.Diagnostics.Stopwatch stopwatch;
 
-    void Start()
+    public void Start()
     {
         MidiNotes = new List<List<GameObject>>();
         ProgressBar = Slider.GetComponent<Slider>();

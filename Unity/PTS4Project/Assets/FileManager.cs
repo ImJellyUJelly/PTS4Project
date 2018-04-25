@@ -55,6 +55,7 @@ public class FileManager : MonoBehaviour
         if (path.Length != 0)
         {
             var fileContent = path;
+            ms.midiSequencer.song.Save(fileContent);
             Debug.Log(fileContent);
         }
     }

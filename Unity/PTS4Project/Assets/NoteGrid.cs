@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Assets
 {
-    class NoteGrid
+    public class NoteGrid
     {
         public Hashtable GridNote { get; set; }
 

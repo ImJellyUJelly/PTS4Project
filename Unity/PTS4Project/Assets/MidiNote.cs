@@ -16,14 +16,14 @@ public class MidiNote : MonoBehaviour {
     public float duration;
     public midiSequencer sequencer;
 
-    private bool played = false;
+   // private bool played = false;
     private Camera mainCam;
 
     private void Start()
     {
         InvokeRepeating("MakeVisible", 0.0f, 2.5f);
 
-        played = false;
+        //played = false;
         mainCam = Camera.main;
     }
 
@@ -38,7 +38,7 @@ public class MidiNote : MonoBehaviour {
         {
             if (sequencer.sequencer.Position > position - 12 && sequencer.sequencer.Position < position + 12)
             {
-                played = true;
+                //played = true;
                 Click();
             }
         }

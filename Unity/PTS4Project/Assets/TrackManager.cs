@@ -11,7 +11,7 @@ namespace Assets
     {
         private string path;
         public MidiManager ms;
-        public Dropdown dropdown;
+        public Dropdown dropdown = null;
 
         public void onChange()
         {

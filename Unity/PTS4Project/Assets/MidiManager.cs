@@ -11,40 +11,40 @@ using UnityEngine.UI;
 public class MidiManager : MonoBehaviour
 {
     public MidiProject midiProject;
-        public GameObject Slider;
-        private Slider ProgressBar;
+        public GameObject Slider = null;
+        private Slider ProgressBar = null;
 
-        public GameObject MidiNote;
+        public GameObject MidiNote = null;
         private List<List<GameObject>> MidiNotes;
 
-        public GameObject ContentMidiSong;
+        public GameObject ContentMidiSong = null;
 
-        public GameObject MidiScrollBar;
-        private Scrollbar TimeBar;
+        public GameObject MidiScrollBar = null;
+        private Scrollbar TimeBar = null;
 
-        public Scrollbar PianoScroll;
+        public Scrollbar PianoScroll = null;
 
-        public Scrollbar NoteViewScoll;
+        public Scrollbar NoteViewScoll = null;
 
-        public List<GameObject> Octave;
+        public List<GameObject> Octave = null;
 
-        public initializePiano piano;
+        public initializePiano piano = null;
 
-        public Camera mainCam;
+        public Camera mainCam = null;
 
         private NoteGrid noteGrid = new NoteGrid();
         private float lengthMultiplier = 1;
-        public Slider sliderScale;
+        public Slider sliderScale = null;
 
         private GameObject selectedNote;
 
-        public InputField ifPosition;
-        public InputField ifDuration;
-    public InputField ifNoteNumber;
-    public InputField ifVelocity;
+        public InputField ifPosition = null;
+        public InputField ifDuration = null;
+    public InputField ifNoteNumber = null;
+    public InputField ifVelocity = null;
 
-    public midiSequencer midiSequencer;
-    private System.Diagnostics.Stopwatch stopwatch;
+    public midiSequencer midiSequencer = null;
+    private System.Diagnostics.Stopwatch stopwatch = null;
 
     public void Start()
     {
@@ -145,7 +145,7 @@ public class MidiManager : MonoBehaviour
         MidiNote midiNoteComponent = selectedNote.GetComponent<MidiNote>();
         selectedNote.transform.localPosition = new Vector3(float.Parse(arg0), selectedNote.transform.localPosition.y);
         Debug.Log("Setting position of: " + selectedNote.name + " to: " + arg0);
-        IEnumerator<Track> enumerator = midiSequencer.sequencer.Sequence.GetEnumerator();
+        //IEnumerator<Track> enumerator = midiSequencer.sequencer.Sequence.GetEnumerator();
 
         midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].Move(midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].GetMidiEvent(midiNoteComponent.NoteIndex), int.Parse(arg0));
     }

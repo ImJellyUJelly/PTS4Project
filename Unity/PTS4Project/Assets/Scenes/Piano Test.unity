@@ -919,7 +919,7 @@ GameObject:
   - component: {fileID: 57906396}
   - component: {fileID: 57906398}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: txtPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2683,7 +2683,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 886473258}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.03868106
+  m_Size: 0.038681064
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4803,6 +4803,57 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!1 &381649204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 381649206}
+  - component: {fileID: 381649205}
+  m_Layer: 5
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &381649205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 381649204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1144410546b497a4ab9ee713e543f6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtPos: {fileID: 57906394}
+  txtDur: {fileID: 811728215}
+  txtNoteNumber: {fileID: 859182425}
+  txtVelocity: {fileID: 1625151152}
+  btnAddNote: {fileID: 1005334271}
+  dropdownTrack: {fileID: 1123372237}
+--- !u!224 &381649206
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 381649204}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.55104166, y: 0.55104166, z: 0.55104166}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 960.00006, y: 539.8866}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &407586544
 GameObject:
   m_ObjectHideFlags: 0
@@ -5938,7 +5989,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2075154948}
   m_HandleRect: {fileID: 2075154947}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6892,7 +6943,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 725079189}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.33548662
+  m_Size: 0.31188974
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8763,7 +8814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.9297159}
   m_AnchorMax: {x: 1, y: 0.9297159}
-  m_AnchoredPosition: {x: 0, y: 59.403625}
+  m_AnchoredPosition: {x: 0, y: 59.400208}
   m_SizeDelta: {x: 40254, y: 2519.3}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &704841405
@@ -10221,7 +10272,7 @@ GameObject:
   - component: {fileID: 811728217}
   - component: {fileID: 811728219}
   m_Layer: 5
-  m_Name: Text (2)
+  m_Name: txtDur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10738,7 +10789,7 @@ GameObject:
   - component: {fileID: 859182427}
   - component: {fileID: 859182429}
   m_Layer: 5
-  m_Name: Text (3)
+  m_Name: txtNoteNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19601,7 +19652,7 @@ GameObject:
   - component: {fileID: 1625151154}
   - component: {fileID: 1625151156}
   m_Layer: 5
-  m_Name: Text (4)
+  m_Name: txtVelocity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23953,7 +24004,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 582907077}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.34190845
+  m_Size: 0.34190848
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

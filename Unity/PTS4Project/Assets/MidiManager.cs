@@ -81,7 +81,7 @@ public class MidiManager : MonoBehaviour
                     {
 
 
-                        Debug.Log("Selecting note: " + results[i].gameObject.transform.localPosition + " duration: " + results[i].gameObject.GetComponent<RectTransform>().rect.width);
+                        Debug.Log("Selecting note: " + results[i].gameObject.transform.position + " duration: " + results[i].gameObject.GetComponent<RectTransform>().rect.width + " NOTE: " + results[i].gameObject.GetComponent<MidiNote>().NoteIndex);
                         if (selectedNote != null)
                         {
                             selectedNote.GetComponent<Outline>().effectDistance = new Vector2(1, -1);
@@ -119,6 +119,17 @@ public class MidiManager : MonoBehaviour
             {
                 ProgressBar.value = midiSequencer.sequencer.Position;
             }
+        }
+
+        if (selectedNote != null && Input.GetKeyDown(KeyCode.Delete))
+        {
+            Debug.Log("Delete");
+            MidiNote note = selectedNote.GetComponent<MidiNote>();
+            //midiSequencer.song[note.NoteTrack].Clear();
+            Debug.Log("Index: " + note.NoteIndex);
+            Debug.Log("Count: " + midiSequencer.song[note.NoteTrack].Count);
+            midiSequencer.song[note.NoteTrack].RemoveAt(note.NoteIndex - 1);
+            
         }
 
     }
@@ -192,7 +203,6 @@ public class MidiManager : MonoBehaviour
             Debug.Log(e.Message);
         }
 
-        midiSequencer.sequencer.Sequence = midiSequencer.song;
         ProgressBar.maxValue = midiSequencer.song.GetLength();
         ContentMidiSong.GetComponent<RectTransform>().offsetMax = new Vector2(midiSequencer.song.GetLength(), ContentMidiSong.GetComponent<RectTransform>().offsetMax.y);
 
@@ -359,6 +369,7 @@ public class MidiManager : MonoBehaviour
                 }
             }
             trackNo++;
+            midiEventIndex = 0;
         }
     }
 

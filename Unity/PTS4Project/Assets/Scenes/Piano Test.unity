@@ -2683,7 +2683,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 886473258}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.038681064
+  m_Size: 0.03868106
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2812,7 +2812,9 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Open
       m_Image: {fileID: 0}
-    - m_Text: Sate
+    - m_Text: Save
+      m_Image: {fileID: 0}
+    - m_Text: Delete track
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6943,7 +6945,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 725079189}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.31188974
+  m_Size: 0.33543554
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8814,7 +8816,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.9297159}
   m_AnchorMax: {x: 1, y: 0.9297159}
-  m_AnchoredPosition: {x: 0, y: 59.400208}
+  m_AnchoredPosition: {x: 0, y: 59.394592}
   m_SizeDelta: {x: 40254, y: 2519.3}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &704841405
@@ -19113,6 +19115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ms: {fileID: 1758599017}
   dropdown: {fileID: 231847189}
+  track: {fileID: 1123372239}
 --- !u!114 &1594759488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24004,7 +24007,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 582907077}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.34190848
+  m_Size: 0.34190845
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

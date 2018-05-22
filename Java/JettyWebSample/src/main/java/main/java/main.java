@@ -24,7 +24,7 @@ public class main extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-
+        String method = req.getParameter("method");
         String user = req.getParameter("user");
         String pass = req.getParameter("pass");
 
@@ -35,21 +35,45 @@ public class main extends HttpServlet {
 //        }
         resp.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = resp.getWriter();
-        writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        writer.append("<midi_song>");
-
-        if (user != null){
-            writer.append("Logged in as: " + user + ", Password: "+pass+ "  " );
-        } else {
+//        writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+//        writer.append("<midi_song>");
+        if(method != null){
+            if(method.equals("login")){
+                login(writer, user, pass);
+            }
+            else if(method == "getSong"){
+                getSong(writer);
+            }
+        }
+        else {
             writer.append("Unauthenticated.");
         }
 
-        writer.append("SESSION ID:" + req.getSession().getId());
+//        if (user != null){
+//            writer.append("Method: " + method + ", User: " + user + ", Password: "+pass+ "  " );
+//        }
 
 
-        writer.append("</midi_song>");
+//        writer.append("SESSION ID:" + req.getSession().getId());
+//
+//
+//        writer.append("</midi_song>");
 
 
+    }
+    private PrintWriter login(PrintWriter writer, String user, String pass){
+        //check login data in database
+        if(user.equals("test") && pass.equals("test")){
+            writer.append("User: " + user + ", Password: "+ pass + ".");
+        }
+        else{
+            writer.append("false");
+        }
+        return writer;
+}
+    private PrintWriter getSong(PrintWriter writer){
+        //get song from database
+        return writer;
     }
 
     @Override

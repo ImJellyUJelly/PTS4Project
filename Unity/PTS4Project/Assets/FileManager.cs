@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using Assets;
 using SFB;
+using Sanford.Multimedia.Midi;
 
 public class FileManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class FileManager : MonoBehaviour
     public MidiManager ms;
     public Dropdown dropdown;
     public ExtensionFilter[] filters;
+    public Dropdown track;
 
     private void Awake()
     {
@@ -33,6 +35,10 @@ public class FileManager : MonoBehaviour
             case 3:
                 dropdown.value = 0;
                 SaveFile();
+                break;
+            case 4:
+                dropdown.value = 0;
+                DeleteFile();
                 break;
         }
     }
@@ -58,5 +64,21 @@ public class FileManager : MonoBehaviour
             ms.midiSequencer.song.Save(fileContent);
             Debug.Log(fileContent);
         }
+    }
+
+    public void DeleteFile()
+    {
+        int trackNumber = track.value;
+        Sequence s = ms.midiSequencer.sequencer.Sequence;
+
+        Track t = s[trackNumber - 1];
+        
+        Debug.Log(trackNumber);
+
+        if (trackNumber > 0)
+        {
+            ms.midiSequencer.song.Remove(t);
+        }
+
     }
 }

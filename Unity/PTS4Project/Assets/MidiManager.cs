@@ -11,35 +11,35 @@ using UnityEngine.UI;
 public class MidiManager : MonoBehaviour
 {
     public MidiProject midiProject;
-        public GameObject Slider = null;
-        private Slider ProgressBar = null;
+    public GameObject Slider = null;
+    private Slider ProgressBar = null;
 
-        public GameObject MidiNote = null;
-        private List<List<GameObject>> MidiNotes;
+    public GameObject MidiNote = null;
+    private List<List<GameObject>> MidiNotes;
 
-        public GameObject ContentMidiSong = null;
+    public GameObject ContentMidiSong = null;
 
-        public GameObject MidiScrollBar = null;
-        private Scrollbar TimeBar = null;
+    public GameObject MidiScrollBar = null;
+    private Scrollbar TimeBar = null;
 
-        public Scrollbar PianoScroll = null;
+    public Scrollbar PianoScroll = null;
 
-        public Scrollbar NoteViewScoll = null;
+    public Scrollbar NoteViewScoll = null;
 
-        public List<GameObject> Octave = null;
+    public List<GameObject> Octave = null;
 
-        public initializePiano piano = null;
+    public initializePiano piano = null;
 
-        public Camera mainCam = null;
+    public Camera mainCam = null;
 
-        private NoteGrid noteGrid = new NoteGrid();
-        private float lengthMultiplier = 1;
-        public Slider sliderScale = null;
+    private NoteGrid noteGrid = new NoteGrid();
+    private float lengthMultiplier = 1;
+    public Slider sliderScale = null;
 
-        private GameObject selectedNote;
+    private GameObject selectedNote;
 
-        public InputField ifPosition = null;
-        public InputField ifDuration = null;
+    public InputField ifPosition = null;
+    public InputField ifDuration = null;
     public InputField ifNoteNumber = null;
     public InputField ifVelocity = null;
 
@@ -86,6 +86,7 @@ public class MidiManager : MonoBehaviour
                         {
                             selectedNote.GetComponent<Outline>().effectDistance = new Vector2(1, -1);
                         }
+
                         selectedNote = results[i].gameObject;
                         selectedNote.GetComponent<Outline>().effectDistance = new Vector2(6, -6);
 
@@ -123,10 +124,8 @@ public class MidiManager : MonoBehaviour
 
         if (selectedNote != null && Input.GetKeyDown(KeyCode.Delete))
         {
-            Debug.Log("Delete");
             MidiNote note = selectedNote.GetComponent<MidiNote>();
             int index = note.NoteIndex;
-            Debug.Log("Count: " + midiSequencer.song[note.NoteTrack].Count);
             midiSequencer.song[note.NoteTrack].RemoveAt(note.NoteIndex - 1);
 
             List<GameObject> notes = MidiNotes[note.NoteTrack];
@@ -140,10 +139,12 @@ public class MidiManager : MonoBehaviour
                 }
             }
 
-            MidiNotes[note.NoteTrack].Remove(MidiNotes[note.NoteTrack][index]);
+            MidiNotes[note.NoteTrack].Remove(selectedNote);
 
-            Debug.Log("Tracks: " + midiSequencer.song.Count);
-            Debug.Log("Tracks in List: " + MidiNotes.Count);
+            
+
+            Destroy(selectedNote);
+            selectedNote = null;
 
         }
 
@@ -193,11 +194,13 @@ public class MidiManager : MonoBehaviour
                 midiProject.AddNote(1, position, duration, notenumber, velocity);
                 ResetMidiVisualization();
                 ReadSong();
-            } else
+            }
+            else
             {
                 Debug.Log("Could not parse all values.");
             }
-        } else
+        }
+        else
         {
             Debug.Log("Midi project is null");
         }

@@ -125,11 +125,26 @@ public class MidiManager : MonoBehaviour
         {
             Debug.Log("Delete");
             MidiNote note = selectedNote.GetComponent<MidiNote>();
-            //midiSequencer.song[note.NoteTrack].Clear();
-            Debug.Log("Index: " + note.NoteIndex);
+            int index = note.NoteIndex;
             Debug.Log("Count: " + midiSequencer.song[note.NoteTrack].Count);
             midiSequencer.song[note.NoteTrack].RemoveAt(note.NoteIndex - 1);
-            
+
+            List<GameObject> notes = MidiNotes[note.NoteTrack];
+
+            for (int i = 0; i < notes.Count; i++)
+            {
+                MidiNote n = notes[i].GetComponent<MidiNote>();
+                if (n.NoteIndex > index)
+                {
+                    n.NoteIndex--;
+                }
+            }
+
+            MidiNotes[note.NoteTrack].Remove(MidiNotes[note.NoteTrack][index]);
+
+            Debug.Log("Tracks: " + midiSequencer.song.Count);
+            Debug.Log("Tracks in List: " + MidiNotes.Count);
+
         }
 
     }

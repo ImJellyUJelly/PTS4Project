@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Login : MonoBehaviour
     public GameObject Password;
     private string username;
     private string password;
+    private string method = "login";
     // Use this for initialization
     void Start()
     {
@@ -28,7 +30,16 @@ public class Login : MonoBehaviour
         }
         else
         {
-            Debug.Log("Received: " + uwr.downloadHandler.text);
+            if (uwr.downloadHandler.text == "false")
+            {
+                Debug.Log("User not registered.");
+            }
+            else
+            {
+                //Debug.Log(uwr.downloadHandler.text);
+                SceneManager.LoadScene("Piano Test", LoadSceneMode.Additive);
+            }
+            
         }
     }
 
@@ -78,7 +89,7 @@ public class Login : MonoBehaviour
 
     public void Authenticate()
     {
-        StartCoroutine(getRequest("http://localhost:8080/SimpleMavenWebApp/HelloWorld?user="+ username +"&pass="+ password +""));
+        StartCoroutine(getRequest("http://localhost:8080/SimpleMavenWebApp/HelloWorld?method="+ method +"&user="+ username +"&pass="+ password +""));
 
     }
     // Update is called once per frame

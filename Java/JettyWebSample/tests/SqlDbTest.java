@@ -1,6 +1,6 @@
 package tests;
 
-import main.database.SqlDb;
+import main.java.database.SqlDb;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

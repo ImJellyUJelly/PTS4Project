@@ -1,6 +1,6 @@
 package main.java;
 
-import main.database.SqlDb;
+import main.java.database.SqlDb;
 
 public class Seizure { // facade
     // Nou succes jongens, bring me code

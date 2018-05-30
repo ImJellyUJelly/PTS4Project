@@ -45,9 +45,11 @@ public class MidiManager : MonoBehaviour
 
     public midiSequencer midiSequencer = null;
     private System.Diagnostics.Stopwatch stopwatch = null;
+    public string path;
 
     public void Start()
     {
+        path = null;
         MidiNotes = new List<List<GameObject>>();
         ProgressBar = Slider.GetComponent<Slider>();
         TimeBar = MidiScrollBar.GetComponent<Scrollbar>();
@@ -228,7 +230,7 @@ public class MidiManager : MonoBehaviour
         stopwatch.Stop();
 
         Debug.Log("Loaded " + path + " in " + stopwatch.ElapsedMilliseconds / 1000 + " seconds.");
-
+        this.path = path;
     }
 
     public void ReadSong()

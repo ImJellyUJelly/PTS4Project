@@ -10,7 +10,7 @@ namespace Assets
     public class MidiProject : MonoBehaviour
     {
         public  int channels;
-        private Sequence sequence;
+        public Sequence sequence;
 
         public MidiManager ms;
 

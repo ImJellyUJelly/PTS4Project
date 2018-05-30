@@ -11,6 +11,8 @@ public class MidiNote : MonoBehaviour {
     public int NoteIndex;
     public int NoteOffIndex;
     public int NoteTrack;
+    public int NoteNumber;
+    public int NoteVelocity;
 
     public int position;
     public float duration;

@@ -29,15 +29,9 @@ public class main extends HttpServlet {
         String user = req.getParameter("user");
         String pass = req.getParameter("pass");
 
-//        if (user != null & pass != null){
-//            req.logout();
-//            req.login(user, pass);
-//
-//        }
         resp.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = resp.getWriter();
-//        writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-//        writer.append("<midi_song>");
+
         if(method != null){
             if(method.equals("login")){
                 login(writer, user, pass);

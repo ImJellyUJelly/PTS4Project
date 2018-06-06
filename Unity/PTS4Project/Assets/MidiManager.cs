@@ -45,9 +45,11 @@ public class MidiManager : MonoBehaviour
 
     public midiSequencer midiSequencer = null;
     private System.Diagnostics.Stopwatch stopwatch = null;
+    public string path;
 
     public void Start()
     {
+        path = null;
         MidiNotes = new List<List<GameObject>>();
         ProgressBar = Slider.GetComponent<Slider>();
         TimeBar = MidiScrollBar.GetComponent<Scrollbar>();
@@ -94,6 +96,8 @@ public class MidiManager : MonoBehaviour
 
                         ifPosition.text = selectedNote.transform.localPosition.x + "";
                         ifDuration.text = selectedNote.GetComponent<RectTransform>().rect.width + "";
+                        ifNoteNumber.text = selectedNote.GetComponent<MidiNote>().NoteNumber.ToString();
+                        ifVelocity.text = selectedNote.GetComponent<MidiNote>().NoteVelocity.ToString();
                     }
 
                 }
@@ -124,30 +128,34 @@ public class MidiManager : MonoBehaviour
 
         if (selectedNote != null && Input.GetKeyDown(KeyCode.Delete))
         {
-            MidiNote note = selectedNote.GetComponent<MidiNote>();
-            int index = note.NoteIndex;
-            midiSequencer.song[note.NoteTrack].RemoveAt(note.NoteIndex - 1);
-
-            List<GameObject> notes = MidiNotes[note.NoteTrack];
-
-            for (int i = 0; i < notes.Count; i++)
-            {
-                MidiNote n = notes[i].GetComponent<MidiNote>();
-                if (n.NoteIndex > index)
-                {
-                    n.NoteIndex--;
-                }
-            }
-
-            MidiNotes[note.NoteTrack].Remove(selectedNote);
-
-            
-
-            Destroy(selectedNote);
-            selectedNote = null;
+            DeleteNote();
 
         }
 
+    }
+
+    public void DeleteNote()
+    {
+        MidiNote note = selectedNote.GetComponent<MidiNote>();
+        int index = note.NoteIndex;
+        midiSequencer.song[note.NoteTrack].RemoveAt(note.NoteIndex - 1);
+        midiProject.sequence[note.NoteTrack].RemoveAt(note.NoteIndex - 1);
+
+        List<GameObject> notes = MidiNotes[note.NoteTrack];
+
+        for (int i = 0; i < notes.Count; i++)
+        {
+            MidiNote n = notes[i].GetComponent<MidiNote>();
+            if (n.NoteIndex > index)
+            {
+                n.NoteIndex--;
+            }
+        }
+
+        MidiNotes[note.NoteTrack].Remove(selectedNote);
+
+        Destroy(selectedNote);
+        selectedNote = null;
     }
 
 
@@ -175,6 +183,41 @@ public class MidiManager : MonoBehaviour
         //IEnumerator<Track> enumerator = midiSequencer.sequencer.Sequence.GetEnumerator();
 
         midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].Move(midiSequencer.sequencer.Sequence[midiNoteComponent.NoteTrack].GetMidiEvent(midiNoteComponent.NoteIndex), int.Parse(arg0));
+    }
+
+    public void CheckNoteSelected()
+    {
+        if (selectedNote == null)
+        {
+            AddNote();
+        }
+        else
+        {
+            EditNote();
+        }
+    }
+
+    public void EditNote()
+    {
+
+        int position;
+        int duration;
+        int notenumber;
+        int velocity;
+
+        if (int.TryParse(ifPosition.text, out position) &&
+            int.TryParse(ifDuration.text, out duration) &&
+            int.TryParse(ifNoteNumber.text, out notenumber) &&
+            int.TryParse(ifVelocity.text, out velocity))
+        {
+            DeleteNote();
+            AddNote();
+        }
+        else
+        {
+            Debug.Log("Could not parse all values.");
+        }
+
     }
 
     public void AddNote()
@@ -228,7 +271,7 @@ public class MidiManager : MonoBehaviour
         stopwatch.Stop();
 
         Debug.Log("Loaded " + path + " in " + stopwatch.ElapsedMilliseconds / 1000 + " seconds.");
-
+        this.path = path;
     }
 
     public void ReadSong()
@@ -259,6 +302,8 @@ public class MidiManager : MonoBehaviour
                         MidiNote midiNoteComponent = midiNote.GetComponent<MidiNote>();
                         Button pianoButton = button.GetComponent<Button>();
 
+                        midiNoteComponent.NoteNumber = cm.Data1;
+                        midiNoteComponent.NoteVelocity = cm.Data2;
                         midiNoteComponent.button = pianoButton;
                         midiNoteComponent.position = midiEvent.AbsoluteTicks;
                         midiNoteComponent.sequencer = midiSequencer;
@@ -389,6 +434,8 @@ public class MidiManager : MonoBehaviour
             trackNo++;
             midiEventIndex = 0;
         }
+
+        midiProject.sequence = midiSequencer.song;
     }
 
     public void ChangeTrack(int trackNo)

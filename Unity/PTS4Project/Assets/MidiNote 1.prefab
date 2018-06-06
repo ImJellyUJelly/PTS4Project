@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114034022663448960}
   - component: {fileID: 114289132078346946}
   m_Layer: 8
-  m_Name: MidiNote
+  m_Name: MidiNote 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

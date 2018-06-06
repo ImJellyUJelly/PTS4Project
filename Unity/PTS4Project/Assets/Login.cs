@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Login : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Login : MonoBehaviour
   public GameObject piano;
   private string username;
   private string password;
+  private string returnMessage = "hey";
   private string method = "login";
   // Use this for initialization
   void Start()
@@ -47,6 +49,11 @@ public class Login : MonoBehaviour
       }
 
     }
+  }
+
+  public object GetReturnMessage()
+  {
+    return returnMessage;
   }
 
   IEnumerator LoadYourAsyncScene()

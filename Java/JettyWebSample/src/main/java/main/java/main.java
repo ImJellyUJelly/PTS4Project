@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 
 public class main extends HttpServlet {
 
+    //private main.java.Seizure seizure;
     private String message;
 
     @Override
@@ -56,7 +57,7 @@ public class main extends HttpServlet {
 
     }
     private PrintWriter login(PrintWriter writer, String user, String pass){
-        //check login data in database
+        //check login data in main.java.database
         if(user.equals("test") && pass.equals("test")){
             writer.append("User: " + user + ", Password: "+ pass + ".");
         }
@@ -66,7 +67,8 @@ public class main extends HttpServlet {
         return writer;
 }
     private PrintWriter getSong(PrintWriter writer){
-        //get song from database
+        //get song from main.java.database
+        //seizure.loadMidiString(0); // sum id?
         return writer;
     }
 

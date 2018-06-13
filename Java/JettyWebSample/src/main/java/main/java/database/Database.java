@@ -24,7 +24,7 @@ public class Database {
             String dbDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
             Class.forName(dbDriver).newInstance();
 
-            return DriverManager.getConnection("jdbc:sqlserver://daw.database.windows.net", "pts42", "");
+            return DriverManager.getConnection("jdbc:sqlserver://daw.database.windows.net;" + "databaseName=DAWdatabase", "pts42", "Password1");
         }
         catch(Exception exception){
             return null;

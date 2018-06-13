@@ -17,4 +17,6 @@ public class Seizure { // facade
     public void saveMidiString(String midi) {
         sqlDb.insertMidiString(midi);
     }
+
+    
 }

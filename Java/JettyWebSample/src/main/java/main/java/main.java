@@ -31,13 +31,18 @@ public class main extends HttpServlet {
 
         resp.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = resp.getWriter();
+//        writer.append("webservice reached");
+//        login(writer, "user", "pass" );
 
         if(method != null){
             if(method.equals("login")){
-                login(writer, user, pass);
+                writer = login(writer, user, pass);
             }
-            else if(method == "getSong"){
-                getSong(writer);
+            else if(method.equals("getSong")){
+                writer = getSong(writer);
+            }
+            else if(method.equals("Test")){
+                writer.append("True");
             }
         }
         else {

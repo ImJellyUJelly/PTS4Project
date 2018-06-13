@@ -94,8 +94,8 @@ public class MidiManager : MonoBehaviour
 
 
 
-                        ifPosition.text = selectedNote.transform.localPosition.x + "";
-                        ifDuration.text = selectedNote.GetComponent<RectTransform>().rect.width + "";
+                        ifPosition.text = selectedNote.GetComponent<MidiNote>().position.ToString();
+                        ifDuration.text = selectedNote.GetComponent<MidiNote>().duration.ToString();
                         ifNoteNumber.text = selectedNote.GetComponent<MidiNote>().NoteNumber.ToString();
                         ifVelocity.text = selectedNote.GetComponent<MidiNote>().NoteVelocity.ToString();
                     }
@@ -306,6 +306,7 @@ public class MidiManager : MonoBehaviour
                         midiNoteComponent.NoteVelocity = cm.Data2;
                         midiNoteComponent.button = pianoButton;
                         midiNoteComponent.position = midiEvent.AbsoluteTicks;
+                        midiNoteComponent.NoteDuration = midiEvent.AbsoluteTicks - midiEvent.DeltaTicks;
                         midiNoteComponent.sequencer = midiSequencer;
                         midiNoteComponent.colors = pianoButton.colors;
                         midiNoteComponent.NoteTrack = trackNo;
@@ -409,7 +410,7 @@ public class MidiManager : MonoBehaviour
                                 float duration = (Math.Abs((int)note.transform.localPosition.x - midiEvent.AbsoluteTicks)) / lengthMultiplier * -1;
                                 RectTransform rec = note.GetComponent<RectTransform>();
                                 note.GetComponent<MidiNote>().NoteOffIndex = midiEventIndex;
-                                note.GetComponent<MidiNote>().duration = duration;
+                                note.GetComponent<MidiNote>().duration = midiEvent.DeltaTicks;
 
                                 if (duration < -5000)
                                 {

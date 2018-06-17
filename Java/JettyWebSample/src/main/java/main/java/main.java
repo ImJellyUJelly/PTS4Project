@@ -15,6 +15,7 @@ public class main extends HttpServlet {
 
     //private main.java.Seizure seizure;
     private String message;
+    private Seizure seizure = new Seizure();
 
     @Override
     public void init() throws ServletException {
@@ -23,12 +24,10 @@ public class main extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
         String method = req.getParameter("method");
         String user = req.getParameter("user");
         String pass = req.getParameter("pass");
-
+        String payload = req.getParameter("payload");
         resp.setContentType("text/xml;charset=UTF-8");
         PrintWriter writer = resp.getWriter();
 //        writer.append("webservice reached");
@@ -36,19 +35,28 @@ public class main extends HttpServlet {
 
         if(method != null){
             if(method.equals("login")){
-                writer = login(writer, user, pass);
+                if(seizure.login(user,pass)){
+                    writer.append("Welcome "+user+".");
+                }
+                else{
+                    writer.append("User does not exsist.");
+                }
             }
             else if(method.equals("getSong")){
-                writer = getSong(writer);
+                seizure.loadMidiString(1);
             }
-            else if(method.equals("Test")){
-                writer.append("True");
+            else if(method.equals("testSongSave")){
+                 seizure.saveMidiByte(payload);
+                 writer.append(seizure.readMidiByte());
+//                System.out.println(payload);
+            }
+            else if(method.equals("saveSong")){
+                seizure.saveMidiString("");
             }
         }
         else {
-            writer.append("Unauthenticated.");
+            writer.append("Internal error404: No method found.");
         }
-
 //        if (user != null){
 //            writer.append("Method: " + method + ", User: " + user + ", Password: "+pass+ "  " );
 //        }

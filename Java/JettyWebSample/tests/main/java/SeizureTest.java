@@ -21,6 +21,11 @@ public class SeizureTest {
     }
 
     @Test
+    public void login() {
+        assertEquals(true, seizuer.login("Michael", "Michael"));
+    }
+
+    @Test
     public void saveMidiString() {
         String midiString = "<xml>Nieuwe xmlstring for testing.</xml>";
         seizuer.saveMidiString(midiString);

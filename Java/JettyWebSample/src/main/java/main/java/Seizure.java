@@ -18,5 +18,7 @@ public class Seizure { // facade
         sqlDb.insertMidiString(midi);
     }
 
-    
+    public void saveMidiByte(String midi){sqlDb.insertMidiBlob(midi);}
+    public String readMidiByte(){return sqlDb.readMidiBlob();}
+    public boolean login(String username, String password){return sqlDb.login(username,password);}
 }

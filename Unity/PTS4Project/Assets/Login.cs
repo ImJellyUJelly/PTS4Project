@@ -15,8 +15,7 @@ public class Login : MonoBehaviour
     public GameObject piano;
     private string username;
     private string password;
-    private string returnMessage = "hey";
-    private string method = "Test";
+    private string method = "login";
     // Use this for initialization
     void Start()
     {
@@ -35,26 +34,20 @@ public class Login : MonoBehaviour
         else
         {
             Debug.Log(uwr.downloadHandler.text);
-            if (uwr.downloadHandler.text == "false")
+            if (uwr.downloadHandler.text.Contains("Welcome"))
             {
-                Debug.Log("User not registered.");
+                Debug.Log(uwr.downloadHandler.text);
+                StartCoroutine(LoadYourAsyncScene());
             }
             else
             {
-                returnMessage = uwr.downloadHandler.text;
-                Debug.Log(returnMessage);
-                StartCoroutine(LoadYourAsyncScene());
+                Debug.Log(uwr.downloadHandler.text);
                 //SceneManager.UnloadSceneAsync("Scene-Login");
                 //SceneManager.LoadScene("Piano Test", LoadSceneMode.Additive);
             }
-
         }
     }
 
-    public string GetReturnMessage()
-    {
-        return returnMessage;
-    }
 
     IEnumerator LoadYourAsyncScene()
     {

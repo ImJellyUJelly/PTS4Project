@@ -56,6 +56,79 @@ public class SqlDb {
         }
         return null;
     }
+    public boolean login(String username, String password){
+        Database sqlConnection = new Database();
+        String result = null;
+        try{
+            sqlConnection.setStatement(sqlConnection.getConnection().createStatement());
+            String query = "SELECT * FROM DAWdatabase.dbo.[User] where username = '"+username+"' and password = '"+password+"'";
+
+            PreparedStatement ps = sqlConnection.getConnection().prepareStatement(query);
+
+            sqlConnection.setResult(ps.executeQuery());
+            if (sqlConnection.getResult().next()) {
+                result = sqlConnection.getResult().getString(1);
+            }
+        } catch(Exception ex) {
+            //Do nothing
+            ex.printStackTrace();
+        }
+        finally{
+            sqlConnection.closeAll();
+        }
+        if(result == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public void insertMidiBlob(String midi) {
+        Database sqlConnection = new Database();
+        try{
+            sqlConnection.setStatement(sqlConnection.getConnection().createStatement());
+            System.out.println(midi);
+            byte[] theByteArray = midi.getBytes();
+            String query = "INSERT INTO DAWdatabase.dbo.[MidiBLOB] (blob) VALUES (?);";
+
+            PreparedStatement ps = sqlConnection.getConnection().prepareStatement(query);
+            ps.setBytes(1, theByteArray);
+
+            ps.executeUpdate();
+
+        } catch(Exception ex) {
+            //Do nothing
+            ex.printStackTrace();
+        }
+        finally{
+            sqlConnection.closeAll();
+        }
+    }
+
+    public String readMidiBlob() {
+        Database sqlConnection = new Database();
+        String result = null;
+        try{
+            sqlConnection.setStatement(sqlConnection.getConnection().createStatement());
+            String query = "SELECT [BLOB] from DAWdatabase.dbo.[MidiBLOB] Where id = (?);";
+
+            PreparedStatement ps = sqlConnection.getConnection().prepareStatement(query);
+            ps.setInt(1, 1);
+            sqlConnection.setResult(ps.executeQuery());
+            if (sqlConnection.getResult().next()) {
+                result = sqlConnection.getResult().getString(1);
+            }
+
+        } catch(Exception ex) {
+            //Do nothing
+            ex.printStackTrace();
+        }
+        finally{
+            sqlConnection.closeAll();
+        }
+        return result;
+    }
 
     public void insertMidiString(String midiFile) {
         Database sqlConnection = new Database();

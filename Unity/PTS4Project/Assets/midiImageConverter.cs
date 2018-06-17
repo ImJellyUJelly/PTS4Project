@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
+using System.IO;
+
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+
 public class midiImageConverter : MonoBehaviour {
 
     private const string converterPath = "sheet.exe";
@@ -19,6 +24,7 @@ public class midiImageConverter : MonoBehaviour {
         pInfo.FileName = converterPath;
         pInfo.WindowStyle = ProcessWindowStyle.Hidden;
         pInfo.Arguments = "";
+        
 
     }
 	// Update is called once per frame
@@ -40,6 +46,20 @@ public class midiImageConverter : MonoBehaviour {
                 {
                     pInfo.Arguments = mm.path + " " + "midi" + "-sheet";
                     exe.WaitForExit();
+
+                    
+                    var document = new Document(PageSize.A2);
+                    using (var stream = new FileStream(mm.path + "pdf", FileMode.Create, FileAccess.Write, FileShare.None))
+                    {
+                        PdfWriter.GetInstance(document, stream);
+                        document.OpenDocument();
+                        using (var imageStream = new FileStream(Directory.GetCurrentDirectory() + "\\midi" + "-sheet_1.png", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        {
+                            var image = Image.GetInstance(imageStream);
+                            document.Add(image);
+                        }
+                        document.Close();
+                    }
                 }
             }
             catch (System.Exception e)

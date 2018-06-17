@@ -6,6 +6,9 @@ using Sanford.Multimedia.Midi;
 using System.IO;
 using System.Collections;
 using UnityEngine.Networking;
+using System;
+using System.Globalization;
+using System.Text;
 
 public class FileManager : MonoBehaviour
 {
@@ -43,6 +46,10 @@ public class FileManager : MonoBehaviour
                 break;
             case 4:
                 dropdown.value = 0;
+                SaveFileOnline();
+                break;
+            case 5:
+                dropdown.value = 0;
                 DeleteFile();
                 break;
         }
@@ -67,43 +74,67 @@ public class FileManager : MonoBehaviour
         {
             var fileContent = path;
             ms.midiSequencer.song.Save(fileContent);
-            Debug.Log(fileContent);
-            b = File.ReadAllBytes(path);
-            //int i = 0;
-            //foreach (byte by in b)
-            //{
-            //    Debug.Log(by.ToString()+ " " + i);
-            //    i++;
-            //}
-            //string convert = "This is the string to be converted";
-
-            // From byte array to string
-            string s = System.Text.Encoding.UTF8.GetString(b, 0, b.Length);
-            StartCoroutine(Authenticate(s));
-            //// From string to byte array
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(returnMessage);
-            path = StandaloneFileBrowser.SaveFilePanel("Save MIDI", "", "New Midi", filters);
-            if (path.Length != 0)
-            {
-                var fileContent2 = path;
-                File.WriteAllBytes(fileContent2, buffer);
-            }
         }
     }
-    public IEnumerator Authenticate(string s)
+
+    public void SaveFileOnline()
+    {
+        string tempPath = Directory.GetCurrentDirectory() + "\\temp.mid";
+        ms.midiSequencer.song.Save(tempPath);
+        b = File.ReadAllBytes(tempPath);
+        string s = ByteArrayToString(b);
+        Authenticate(s);
+    }
+
+    public void Authenticate(string s)
     {
         string method = "testSongSave";
-        StartCoroutine(getRequest("http://localhost:8080/SimpleMavenWebApp/HelloWorld?method=" + method + "&payload=" + s));
+        StartCoroutine(getRequest("http://localhost:8080/SimpleMavenWebApp/HelloWorld?method=" + method + "&payload=" + s, saveMidiByteArray));
         Debug.Log("Authenticate: " + returnMessage);
-        yield return new WaitForSeconds(10);
     }
-    public IEnumerator getRequest(string uri)
+
+    public void saveMidiByteArray()
+    {
+        Debug.Log("do after " + returnMessage);
+        byte[] buffer = ConvertHexStringToByteArray(returnMessage);
+        Debug.Log(buffer.ToString());
+        path = Directory.GetCurrentDirectory();
+        path += "/tempMidi.mid";
+        File.WriteAllBytes(path, buffer);
+        Debug.Log("Size after database: " + buffer.Length);
+        
+    }
+
+    public static byte[] ConvertHexStringToByteArray(string hexString)
+    {
+        if (hexString.Length % 2 != 0)
+        {
+            throw new ArgumentException(String.Format(CultureInfo.InvariantCulture, "The binary key cannot have an odd number of digits: {0}", hexString));
+        }
+
+        byte[] HexAsBytes = new byte[hexString.Length / 2];
+        for (int index = 0; index < HexAsBytes.Length; index++)
+        {
+            string byteValue = hexString.Substring(index * 2, 2);
+            HexAsBytes[index] = byte.Parse(byteValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+        }
+
+        return HexAsBytes;
+    }
+
+    public static string ByteArrayToString(byte[] ba)
+    {
+        StringBuilder hex = new StringBuilder(ba.Length * 2);
+        foreach (byte b in ba)
+            hex.AppendFormat("{0:x2}", b);
+        return hex.ToString();
+    }
+
+    public IEnumerator getRequest(string uri, Action doAfter)
     {
         UnityWebRequest uwr = UnityWebRequest.Get(uri);
         yield return uwr.SendWebRequest();
-        Debug.Log(returnMessage);
         returnMessage = uwr.downloadHandler.text;
-        Debug.Log(returnMessage);
         if (uwr.isNetworkError)
         {
             Debug.Log("Error While Sending: " + uwr.error);
@@ -111,8 +142,8 @@ public class FileManager : MonoBehaviour
         else
         {
             Debug.Log("Message: " + returnMessage);
+            doAfter();
         }
-        yield return new WaitForSeconds(10);
     }
 
     public void DeleteFile()

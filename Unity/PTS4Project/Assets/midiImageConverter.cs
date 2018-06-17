@@ -49,7 +49,7 @@ public class midiImageConverter : MonoBehaviour {
 
                     
                     var document = new Document(PageSize.A2);
-                    using (var stream = new FileStream(mm.path + "pdf", FileMode.Create, FileAccess.Write, FileShare.None))
+                    using (var stream = new FileStream(mm.path + ".pdf", FileMode.Create, FileAccess.Write, FileShare.None))
                     {
                         PdfWriter.GetInstance(document, stream);
                         document.OpenDocument();

@@ -38,6 +38,17 @@
       <module name="JettyWebSample" target="1.5" />
     </bytecodeTargetLevel>
   </component>
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="DAWdatabase@daw.database.windows.net" uuid="f4c6e68a-5efe-412c-a644-b614d5d1bbab">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://daw.database.windows.net;database=DAWdatabase</jdbc-url>
+      <driver-properties>
+        <property name="applicationName" value="DataGrip" />
+      </driver-properties>
+    </data-source>
+  </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
@@ -270,6 +281,18 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
+  </component>
+  <component name="dataSourceStorageLocal">
+    <data-source name="DAWdatabase@daw.database.windows.net" uuid="f4c6e68a-5efe-412c-a644-b614d5d1bbab">
+      <database-info product="Microsoft SQL Server" version="12.00.600" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 6.4 for SQL Server" driver-version="6.4.0.0">
+        <extra-name-characters>$#@</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>pts42</user-name>
+      <introspection-schemas>DAWdatabase:dbo</introspection-schemas>
+    </data-source>
   </component>
   <component name="libraryTable">
     <library name="Maven: com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre8">

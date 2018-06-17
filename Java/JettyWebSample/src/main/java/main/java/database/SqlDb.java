@@ -88,8 +88,8 @@ public class SqlDb {
         Database sqlConnection = new Database();
         try{
             sqlConnection.setStatement(sqlConnection.getConnection().createStatement());
-            System.out.println(midi);
             byte[] theByteArray = midi.getBytes();
+            System.out.println(theByteArray.length);
             String query = "INSERT INTO DAWdatabase.dbo.[MidiBLOB] (blob) VALUES (?);";
 
             PreparedStatement ps = sqlConnection.getConnection().prepareStatement(query);
@@ -114,7 +114,7 @@ public class SqlDb {
             String query = "SELECT [BLOB] from DAWdatabase.dbo.[MidiBLOB] Where id = (?);";
 
             PreparedStatement ps = sqlConnection.getConnection().prepareStatement(query);
-            ps.setInt(1, 1);
+            ps.setInt(1, 36);
             sqlConnection.setResult(ps.executeQuery());
             if (sqlConnection.getResult().next()) {
                 result = sqlConnection.getResult().getString(1);
